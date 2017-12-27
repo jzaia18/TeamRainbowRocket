@@ -1,0 +1,78 @@
+Pokemon C-up
+
+Description
+    Pokemon C-up is a Pokemon battling simulator, inspired by Pokemon Showdown (https://play.pokemonshowdown.com/). We will use networking to connect players so that they may battle each other. (and procrastinate doing systems hw)
+
+Usage
+    Run main file
+    Choose singleplayer or multiplayer (this will drastically change the functionality of the program)
+    Single player
+        Draft a team of pokemon or pick from a previously drafted team (or choose a random team)
+        Pick AI difficulty
+        Battle the AI player
+        Go back to choose singleplayer or multiplayer
+    Multiplayer
+        Enter username
+        Draft a team of pokemon or pick from a previously drafted team (or choose a random team)
+        Choose to join single battle or double battle lobby
+        Choose another player to battle
+        Let us do battle IT'S TIME TO D-D-D-D-DUEL!
+            Use a move against the opponent
+            Switch out the current pokemon
+            Chat with the other player
+            Display results of the match
+        Go back to choose singleplayer or multiplayer
+
+Technical Stuff
+    What were formerly classes will be structs and what were formerly constructors will become functions that fill these structs with the appropriate values
+    Use memory allocation to store data of custom teams
+    Implement a lobby system using networking
+    One user can ask another player for a battle
+    Initiates battle if the other player accepts
+    Implement a multiplayer mode through the usage of networking
+    All info is sent in the format: <pid> <int representing type of communication> “<data>”
+    Comms types:
+        0: exit
+        1: chat
+        2: use move
+        3: forfeit
+    Uses the algorithm that the Pokémon company uses to calculate the damage that will be dealt to a certain Pokémon
+
+Timeline
+(This timeline includes room for deadlines to not be met)
+    Implement pokemon, moves, and battle mechanics (Much of this is refactoring old Java code) - Everyone (By 2018-01-02)
+        Refactor old code - Jake & Rihui
+        Turn Pokemon classes into Pokemon structs
+        Convert battle mechanics file into C (This should be very little work)
+        Turn pokemon moves into structs (the struct will have the stats of the move)
+        Basically OOP functionality
+    Implement AI functionality for the singleplayer opponent - Piotr, Leo
+        Be able to decide whether to pick a move with:
+            The most damage
+            A status condition
+            Turn priority (attacks first)
+            etc.
+    Implement team-building - Piotr & Rihui (By 2018-01-05)
+        Select team members from pre-determined list
+        Implement UI for the battle scene - Jake & Leo (By 2018-01-06)
+        Utilize tmux to split the chat into a separate terminal window
+        2 windows:
+            Main battle in left side of the screen
+            Battle/move history on the right
+            Sample UI image: https://screenshots.firefoxusercontent.com/images/02d9919a-fee7-4cfc-ae4b-faacae96f856.png
+    Implement networking for multiplayer usage - Everyone (By 2018-01-08)
+        Will enable the user to connect with players on separate machines in the lab
+        Multiplayer lobby and matchmaking system - Rihui & Jake (By 2018-01-10)
+        Will open your connection until a suitable player is found or a certain time limit is reached
+            If time limit is reached, you may be paired with someone outside of your skill rating
+        Alternatively, you can challenge another player manually
+            Will initiate battle when both sides accept
+        Chat between players in the same game - Piotr & Leo (By 2018-01-11)
+    Add a third window underneath the battle/move history
+        Will serve as a text box for user input to communicate with the other player
+        Sample Chat Image: https://screenshots.firefoxusercontent.com/images/c4f9ebbd-9132-40fa-b92f-40d10fa1ea10.png
+
+Dependencies
+    tmux
+    Gcc
+    A pokemon master (Everyone can be a pokemon master)
