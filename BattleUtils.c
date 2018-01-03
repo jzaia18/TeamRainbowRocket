@@ -1,10 +1,6 @@
 #include "sharedheader.h"
 
 
-// THIS FILE IS UNFINISHED!!!
-
-
-// MUST BE UPDATED TO GEN 6
 float compute_effectiveness(char atktype, char deftype1, char deftype2) {
   // Where atktype is the type of the Move being used, and
   //   deftypes are the types of the Pokemon the Move is being used on.
@@ -45,6 +41,7 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == ROCK_TYPENO || deftype2 == ROCK_TYPENO)     effectiveness *= 0.5;
       if (deftype1 == GROUND_TYPENO || deftype2 == GROUND_TYPENO) effectiveness *= 0.5;
       if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)   effectiveness *= 0;
+      if (deftype1 == FAIRY_TYPENO || deftype2 == FAIRY_TYPENO)   effectiveness *= 2;
       return effectiveness;
     }
   if (atktype == FIRE_TYPENO)
@@ -79,6 +76,7 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == PSYCHIC_TYPENO || deftype2 == PSYCHIC_TYPENO)   effectiveness *= 2;
       if (deftype1 == DARK_TYPENO || deftype2 == DARK_TYPENO)         effectiveness *= 2;
       if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)       effectiveness *= 0.5;
+      if (deftype1 == FAIRY_TYPENO || deftype2 == FAIRY_TYPENO)       effectiveness *= 0.5;
       return effectiveness; }
   if (atktype == FLYING_TYPENO)
     {
@@ -101,7 +99,6 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == GHOST_TYPENO || deftype2 == GHOST_TYPENO)     effectiveness *= 2;
       if (deftype1 == PSYCHIC_TYPENO || deftype2 == PSYCHIC_TYPENO) effectiveness *= 2;
       if (deftype1 == DARK_TYPENO || deftype2 == DARK_TYPENO)       effectiveness *= 0.5;
-      if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)     effectiveness *= 0.5;
       return effectiveness;
     }
   if (atktype == FIGHTING_TYPENO)
@@ -116,6 +113,7 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == DARK_TYPENO || deftype2 == DARK_TYPENO)       effectiveness *= 2;
       if (deftype1 == ICE_TYPENO || deftype2 == ICE_TYPENO)         effectiveness *= 2;
       if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)     effectiveness *= 2;
+      if (deftype1 == FAIRY_TYPENO || deftype2 == FAIRY_TYPENO)     effectiveness *= 0.5;
       return effectiveness;
     }
   if (atktype == ROCK_TYPENO)
@@ -153,6 +151,7 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
     {
       if (deftype1 == DRAGON_TYPENO || deftype2 == DRAGON_TYPENO) effectiveness *= 2;
       if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)   effectiveness *= 0.5;
+      if (deftype1 == FAIRY_TYPENO || deftype2 == FAIRY_TYPENO)   effectiveness *= 0;
       return effectiveness;
     }
   if (atktype == DARK_TYPENO)
@@ -161,7 +160,7 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == FIGHTING_TYPENO || deftype2 == FIGHTING_TYPENO) effectiveness *= 0.5;
       if (deftype1 == PSYCHIC_TYPENO || deftype2 == PSYCHIC_TYPENO)   effectiveness *= 2;
       if (deftype1 == DARK_TYPENO || deftype2 == DARK_TYPENO)         effectiveness *= 0.5;
-      if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)       effectiveness *= 0.5;
+      if (deftype1 == FAIRY_TYPENO || deftype2 == FAIRY_TYPENO)       effectiveness *= 0.5;
       return effectiveness;
     }
   if (atktype == ICE_TYPENO)
@@ -183,6 +182,16 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
       if (deftype1 == WATER_TYPENO || deftype2 == WATER_TYPENO)       effectiveness *= 0.5;
       if (deftype1 == ROCK_TYPENO || deftype2 == ROCK_TYPENO)         effectiveness *= 2;
       if (deftype1 == ICE_TYPENO || deftype2 == ICE_TYPENO)           effectiveness *= 2;
+      if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)       effectiveness *= 0.5;
+      return effectiveness;
+    }
+  if (atktype == FAIRY_TYPENO)
+    {
+      if (deftype1 == FIRE_TYPENO || deftype2 == FIRE_TYPENO)         effectiveness *= 0.5;
+      if (deftype1 == FIGHTING_TYPENO || deftype2 == FIGHTING_TYPENO) effectiveness *= 2;
+      if (deftype1 == POISON_TYPENO || deftype2 == POISON_TYPENO)     effectiveness *= 0.5;
+      if (deftype1 == DRAGON_TYPENO || deftype2 == DRAGON_TYPENO)     effectiveness *= 2;
+      if (deftype1 == DARK_TYPENO || deftype2 == DARK_TYPENO)         effectiveness *= 2;
       if (deftype1 == STEEL_TYPENO || deftype2 == STEEL_TYPENO)       effectiveness *= 0.5;
       return effectiveness;
     }
