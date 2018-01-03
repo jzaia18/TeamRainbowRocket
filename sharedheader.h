@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// All pokemon types
 #define ELECTRIC_TYPENO 1
 #define GRASS_TYPENO    2
 #define POISON_TYPENO   3
@@ -17,24 +22,36 @@
 #define STEEL_TYPENO    17
 #define FAIRY_TYPENO    18
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+// All pokemon IDs
+#define PIKACHU_IDNO     1
+#define VENUSAUR_IDNO    2
+#define CHARIZARD_IDNO   3
+#define BLASTOISE_IDNO   4
+#define AERODACTYL_IDNO  5
+#define LAPRAS_IDNO      6
+#define GENGAR_IDNO      7
+#define MACHAMP_IDNO     8
+#define MEWTWO_IDNO      9
+#define SCYTHER_IDNO     10
+#define SNORLAX_IDNO     11
+#define DRAGONITE_IDNO   12
+
 
 struct Move {
   char *name;
   char type; //of the move
-  int power; // damage
+  int power; //damage
   float acc; //accuracy, (0,1]
   char isphysical; char makescontact; char isheal; //treated as booleans
 };
 
 struct Pokemon {
+  char* name;
   int maxhp; int currhp; int speed; int spatk; int atk; int spdef; int def; //stats
   char type1; char type2; //type(s) of the pokemon
   struct Move move1; struct Move move2; struct Move move3; struct Move move4; //moves
 
 };
 
-double rand2() { // rand() but restricts nums [0,1)
-  return rand() / ((double) RAND_MAX); }
+double randr(int a, int b) { // rand() but restricts nums [a,b]
+  return a + (b-a+1) * rand()/((double) RAND_MAX); }

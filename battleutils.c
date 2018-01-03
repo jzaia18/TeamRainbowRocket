@@ -205,10 +205,10 @@ float compute_effectiveness(char atktype, char deftype1, char deftype2) {
 double compute_modifier(struct Pokemon attacker, struct Pokemon defender, struct Move m){
 	//Calculates all modifiers that are attached to the attacks damage
 
-	double mod = .15 * rand2() + .85; //Random element of the attacks damage
+	double mod = .15 * randr(0, 1) + .85; //Random element of the attacks damage
 	if (m.type == attacker.type1 || m.type == attacker.type2) //Same Type Attack Bonus (STAB)
     mod *= 1.5;
-	if (rand2() * 16 < 1) //Did the attack Crit?
+	if (randr(0, 15) == 0) //Did the attack Crit?
     mod *= 1.5;
 	float effectiveness = compute_effectiveness(m.type, defender.type1, defender.type2); //Finds the type effectiveness (see method above)
 	if (effectiveness > 1.0f)
@@ -222,7 +222,7 @@ double compute_modifier(struct Pokemon attacker, struct Pokemon defender, struct
 }
 
 int compute_damage(struct Pokemon attacker, struct Pokemon defender, struct Move m){
-	if (rand2() > m.acc){ //Accuracy check
+	if (randr(0, 1) > m.acc){ //Accuracy check
     printf("But it missed.\n");
     return 0;}
 	else {
