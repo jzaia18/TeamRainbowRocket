@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <strings.h>
+#include <string.h>
 
 // All pokemon types
 #define ELECTRIC_TYPENO 1
