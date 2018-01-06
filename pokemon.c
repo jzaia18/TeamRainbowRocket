@@ -1,34 +1,23 @@
 #include "sharedheader.h"
 
+// I have decided to write my own csv functions, the ones I found online did not work well for our purposes.
+char *getcsventry(int num) {
+  int fd = open(CSV_FILENAME, O_RDONLY);
+  if (num < 1 || num > MAX_POKEMON_IDNO)
+    return "";
 
-/*
-  The following 2 functions are for reading csvs. They are not 100% original code, but were adapted from the post of StackOverflow user sehe.
- */
-const char* getfield(char* line, int num){
-    const char* tok;
-    for (tok = strtok(line, ",");
-            tok && *tok;
-            tok = strtok(NULL, ",\n"))
-    {
-        if (!--num)
-            return tok;
-    }
-    return NULL;
-}
+  // read the file in (exact size)
+  struct stat ap;
+  stat(CSV_FILENAME, &ap);
+  char buf[ap.st_size+15];
+  read(fd, buf, sizeof(buf));
 
-//TODO
-int set_stats(){
-    FILE* stream = fopen("input", "r");
+  // The 1st line (header line)
+  strtok(buf, "\n");
 
-    char line[1024];
-    while (fgets(line, 1024, stream))
-    {
-        char* tmp = strdup(line);
-        printf("Field 3 would be %s\n", getfield(tmp, 3));
-        // NOTE strtok clobbers tmp
-        free(tmp);
-    }
-    return 0;
+  char i = num - 1;
+  while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
+  return strtok(NULL, "\n");
 }
 
 
@@ -54,6 +43,14 @@ struct Pokemon* construct_pokemon(int choice) {
   return p;
 }
 
+
 void setMoves(struct Pokemon *p){
   //TODO
+}
+
+
+int main() {
+  char i = 1;
+  for(; i < 10; i++)
+    printf("%s\n", getcsventry(i));
 }
