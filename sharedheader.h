@@ -57,10 +57,54 @@ struct Move {
 struct Pokemon {
   char* name; int id;
   int maxhp; int currhp; int speed; int spatk; int atk; int spdef; int def; //stats
+  int accuracy; int evade; //extra stats (unused atm)
   char type1; char type2; //type(s) of the pokemon
   struct Move move1; struct Move move2; struct Move move3; struct Move move4; //moves
-
 };
 
-double randr(int a, int b) { // rand() but restricts nums [a,b]
+// rand() but restricts nums [a,b]
+double randr(int a, int b) {
   return a + (b-a+1) * rand()/((double) RAND_MAX); }
+
+// converts type id into a readable string
+char *type_lookup(int typeid){
+  switch(typeid) {
+  case NORMAL_TYPENO:
+    return "Normal";
+  case FIGHTING_TYPENO:
+    return "Fighting";
+  case FLYING_TYPENO:
+    return "Flying";
+  case POISON_TYPENO:
+    return "Poison";
+  case GROUND_TYPENO:
+    return "Ground";
+  case ROCK_TYPENO:
+    return "Rock";
+  case BUG_TYPENO:
+    return "Bug";
+  case GHOST_TYPENO:
+    return "Ghost";
+  case STEEL_TYPENO:
+    return "Steel";
+  case FIRE_TYPENO:
+    return "Fire";
+  case WATER_TYPENO:
+    return "Water";
+  case GRASS_TYPENO:
+    return "Grass";
+  case ELECTRIC_TYPENO:
+    return "Electric";
+  case PSYCHIC_TYPENO:
+    return "Psychic";
+  case ICE_TYPENO:
+    return "Ice";
+  case DRAGON_TYPENO:
+    return "Dragon";
+  case DARK_TYPENO:
+    return "Dark";
+  case FAIRY_TYPENO:
+    return "Fairy";
+  }
+  return "";
+}
