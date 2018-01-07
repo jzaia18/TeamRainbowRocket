@@ -60,7 +60,7 @@ struct Pokemon *construct_pokemon(int id_num) {
   p->type1=atoi(strtok(NULL, ","));
   p->type2=atoi(strtok(NULL, ","));
   set_stats(p); //DO NOT USE OUTSIDE OF THIS FUNCTION
-
+  setMoves(p, 1, 2, 3, 4);
   return p;
 }
 
@@ -75,7 +75,7 @@ void print_pokemon_data(struct Pokemon *p) {
   printf("  spatk: %d\t", p->spatk);
   printf("  spdef: %d\t", p->spdef);
   printf("  speed: %d\n", p->speed);
-  printf("  Moves:\n\t%s\t%s\n%s\t%s\n", p->move1, p->move2, p->move3, p->move4);
+  printf("  Moves:\n\t%s\t%s\n%s\t%s\n", (p->move1).name, (p->move2).name, (p->move3).name, (p->move4).name);
 }
 
 //TODO
@@ -100,17 +100,17 @@ char *get_move_entry(int num) {
 }
 
 struct Move *construct_move(int MOVE_ID){
-  struct Move *m = malloc(sizeof(struct(Move)));
+  struct Move *m = malloc(sizeof(struct Move));
 
   char *data = get_move_entry(MOVE_ID); //grabs data for the move
 
   m->id = atoi(strtok(data, ","));
   m->name = strtok(NULL, ",");
-  m->type = strtok(NULL, ",");
-  m->power = strtok(NULL, ",");
-  m->pp = strtok(NULL, ",");
-  m->acc = strtok(NULL, ",");
-  m->priority = strtok(NULL, ",");
+  m->type = atoi(strtok(NULL, ","));
+  m->power = atoi(strtok(NULL, ","));
+  m->pp = atoi(strtok(NULL, ","));
+  m->acc = atoi(strtok(NULL, ","));
+  m->priority = atoi(strtok(NULL, ","));
   
     //still needs more stuffs
 
@@ -122,10 +122,10 @@ void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4)
   struct Move *MOVE3 = construct_move(MOVE_3);
   struct Move *MOVE4 = construct_move(MOVE_4);
 
-  p->move1 = MOVE1;
-  p->move2 = MOVE2;
-  p->move3 = MOVE3;
-  p->move4 = MOVE4;
+  p->move1 = *MOVE1;
+  p->move2 = *MOVE2;
+  p->move3 = *MOVE3;
+  p->move4 = *MOVE4;
     
 }
 

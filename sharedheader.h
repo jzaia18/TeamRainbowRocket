@@ -43,7 +43,7 @@
 #define DRAGONITE_IDNO   149
 
 #define MAX_POKEMON_IDNO 721
-#define MAX_MOVE_IDNO 722m
+#define MAX_MOVE_IDNO 722
 
 #define POKEDATA_CSV "pokedata.csv"
 #define MOVEDATA_CSV "moves.csv"
@@ -112,3 +112,5 @@ char *type_lookup(int typeid){
   }
   return "";
 }
+
+void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4);
