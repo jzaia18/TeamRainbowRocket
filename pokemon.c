@@ -2,14 +2,14 @@
 
 // I have decided to write my own csv functions, the ones I found online did not work well for our purposes.
 // Extracts one comma-separated line from the csv
-char *get_csv_entry(int num) {
-  int fd = open(CSV_FILENAME, O_RDONLY);
+char *get_poke_entry(int num) {
+  int fd = open(POKEDATA_CSV, O_RDONLY);
   if (num < 1 || num > MAX_POKEMON_IDNO)
     return "";
 
   // read the file in (exact size)
   struct stat ap;
-  stat(CSV_FILENAME, &ap);
+  stat(POKEDATA_CSV, &ap);
   char buf[ap.st_size+15];
   read(fd, buf, sizeof(buf));
 
@@ -52,7 +52,7 @@ void set_stats(struct Pokemon* p) {
 struct Pokemon *construct_pokemon(int id_num) {
   struct Pokemon *p = malloc(sizeof(struct Pokemon)); //no need for default zeros
 
-  char *data = get_csv_entry(id_num); //grab comma separated data
+  char *data = get_poke_entry(id_num); //grab comma separated data
 
   // the following must be executed IN THIS ORDER
   p->id=atoi(strtok(data, ","));
@@ -75,12 +75,58 @@ void print_pokemon_data(struct Pokemon *p) {
   printf("  spatk: %d\t", p->spatk);
   printf("  spdef: %d\t", p->spdef);
   printf("  speed: %d\n", p->speed);
+  printf("  Moves:\n\t%s\t%s\n%s\t%s\n", p->move1, p->move2, p->move3, p->move4);
 }
 
 //TODO
-void setMoves(struct Pokemon *p){
-  printf("%s\n", p->name);
-  //TODO
+
+char *get_move_entry(int num) {
+    int fd = open(MOVEDATA_CSV, O_RDONLY);
+    if (num < 1 || num > MAX_MOVE_IDNO)
+        return "";
+    
+    // read the file in (exact size)
+    struct stat ap;
+    stat(MOVEDATA_CSV, &ap);
+    char buf[ap.st_size+15];
+    read(fd, buf, sizeof(buf));
+    
+    // Skip the 1st line (header line)
+    strtok(buf, "\n");
+    
+    char i = num - 1;
+    while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
+    return strtok(NULL, "\n"); // Return the correct entry
+}
+
+struct Move *construct_move(int MOVE_ID){
+  struct Move *m = malloc(sizeof(struct(Move)));
+
+  char *data = get_move_entry(MOVE_ID); //grabs data for the move
+
+  m->id = atoi(strtok(data, ","));
+  m->name = strtok(NULL, ",");
+  m->type = strtok(NULL, ",");
+  m->power = strtok(NULL, ",");
+  m->pp = strtok(NULL, ",");
+  m->acc = strtok(NULL, ",");
+  m->priority = strtok(NULL, ",");
+  
+    //still needs more stuffs
+
+  return m;
+}
+void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4){
+  struct Move *MOVE1 = construct_move(MOVE_1);
+  struct Move *MOVE2 = construct_move(MOVE_2);
+  struct Move *MOVE3 = construct_move(MOVE_3);
+  struct Move *MOVE4 = construct_move(MOVE_4);
+
+  p->move1 = MOVE1;
+  p->move2 = MOVE2;
+  p->move3 = MOVE3;
+  p->move4 = MOVE4;
+    
 }
 
 // This main is a test, this file is NOT the main file

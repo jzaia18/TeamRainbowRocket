@@ -43,14 +43,18 @@
 #define DRAGONITE_IDNO   149
 
 #define MAX_POKEMON_IDNO 721
+#define MAX_MOVE_IDNO 722m
 
-#define CSV_FILENAME "pokedata.csv"
+#define POKEDATA_CSV "pokedata.csv"
+#define MOVEDATA_CSV "moves.csv"
 
 struct Move {
-  char *name;
+  char *name; int id;
   char type; //of the move
   int power; //damage
+  int pp;
   float acc; //accuracy, (0,1]
+  int priority;
   char isphysical; char makescontact; char isheal; //treated as booleans
 };
 
