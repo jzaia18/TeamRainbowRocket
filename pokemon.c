@@ -75,7 +75,7 @@ void print_pokemon_data(struct Pokemon *p) {
   printf("  spatk: %d\t", p->spatk);
   printf("  spdef: %d\t", p->spdef);
   printf("  speed: %d\n", p->speed);
-  printf("  Moves:\n\t%s\t%s\n%s\t%s\n", (p->move1).name, (p->move2).name, (p->move3).name, (p->move4).name);
+  printf("  Moves:\n\t%s\t\t%s\n%s\t%s\n", p->move1->name, p->move2->name, p->move3->name, p->move4->name);
 }
 
 //TODO
@@ -111,7 +111,7 @@ struct Move *construct_move(int MOVE_ID){
   m->pp = atoi(strtok(NULL, ","));
   m->acc = atoi(strtok(NULL, ","));
   m->priority = atoi(strtok(NULL, ","));
-  
+
     //still needs more stuffs
 
   return m;
@@ -122,15 +122,30 @@ void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4)
   struct Move *MOVE3 = construct_move(MOVE_3);
   struct Move *MOVE4 = construct_move(MOVE_4);
 
-  p->move1 = *MOVE1;
-  p->move2 = *MOVE2;
-  p->move3 = *MOVE3;
-  p->move4 = *MOVE4;
+  p->move1 = MOVE1;
+  p->move2 = MOVE2;
+  p->move3 = MOVE3;
+  p->move4 = MOVE4;
     
+}
+void printmovedata(struct Move *m){
+  printf("Printing the information for the move %s\n", m->name);
+  printf("\tid: %d\n", m->id);
+  printf("\tname: %s\n", m->name);
+  printf("\ttype: %s\n", type_lookup(m->type));
+  printf("\tpower: %d\n", m->power);
+  printf("\taccuracy: %f\n", m->acc);
+  printf("\tpriority: %d\n", m->priority);
 }
 
 // This main is a test, this file is NOT the main file
 int main() {
   struct Pokemon *pikachu = construct_pokemon(PIKACHU_IDNO);
   print_pokemon_data(pikachu);
+
+  printmovedata(pikachu->move1);
+  printmovedata(pikachu->move2);
+  printmovedata(pikachu->move3);
+  printmovedata(pikachu->move4);
 }
+

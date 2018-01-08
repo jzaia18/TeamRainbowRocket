@@ -63,7 +63,7 @@ struct Pokemon {
   int maxhp; int currhp; int speed; int spatk; int atk; int spdef; int def; //stats
   int accuracy; int evade; //extra stats (unused atm)
   char type1; char type2; //type(s) of the pokemon
-  struct Move move1; struct Move move2; struct Move move3; struct Move move4; //moves
+  struct Move *move1; struct Move *move2; struct Move *move3; struct Move *move4; //moves
 };
 
 // rand() but restricts nums [a,b]
