@@ -15,8 +15,8 @@ char *get_poke_entry(int num) {
 
   // Skip the 1st line (header line)
   strtok(buf, "\n");
-
-  char i = num - 1;
+  close(fd);
+  int i = num - 1;
   while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
   return strtok(NULL, "\n"); // Return the correct entry
 }
@@ -93,8 +93,9 @@ char *get_move_entry(int num) {
     
     // Skip the 1st line (header line)
     strtok(buf, "\n");
-    
-    char i = num - 1;
+
+    close(fd);
+    int i = num - 1;
     while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
     return strtok(NULL, "\n"); // Return the correct entry
 }
@@ -143,9 +144,15 @@ int main() {
   struct Pokemon *pikachu = construct_pokemon(PIKACHU_IDNO);
   print_pokemon_data(pikachu);
 
+  //struct Pokemon *mewTOO = construct_pokemon(MEWTWO_IDNO);
+  //printf("mewtwo id: %d\n", MEWTWO_IDNO);
+  //print_pokemon_data(mewTOO);
+
+  
   printmovedata(pikachu->move1);
   printmovedata(pikachu->move2);
   printmovedata(pikachu->move3);
   printmovedata(pikachu->move4);
+  
 }
 
