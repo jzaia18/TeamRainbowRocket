@@ -111,15 +111,22 @@ struct Move *construct_move(int MOVE_ID){
 
   char *data = get_move_entry(MOVE_ID); //grabs data for the move
 
+  printf("data: %s\n", data);
+
+  char * temp;
   
   m->id = atoi(strsep(&data, ","));
-  m->name = strsep(&data, ",");
+
+  temp = strsep(&data, ","); //sorry rihui, i was testing stuff
+  m->name = (temp);
+  printf("data: %s\t temp:%s\n", data, temp);
+  
   m->type = atoi(strsep(&data, ","));
   m->power = atoi(strsep(&data, ","));
   m->pp = atoi(strsep(&data, ","));
   m->acc = atoi(strsep(&data, ","));
   m->priority = atoi(strsep(&data, ","));
-
+  
     //still needs more stuffs
 
   return m;
@@ -149,9 +156,9 @@ void printmovedata(struct Move *m){
 // This main is a test, this file is NOT the main file
 int main() {
 
-  int i = 5;
-  while (--i){
-  struct Pokemon *pikachu = construct_pokemon(i);
+  //int i = 5;
+  //  while (--i){
+  struct Pokemon *pikachu = construct_pokemon(PIKACHU_IDNO);
   print_pokemon_data(pikachu);
   
   //struct Pokemon *mewTOO = construct_pokemon(MEWTWO_IDNO);
@@ -160,10 +167,9 @@ int main() {
 
   
   printmovedata(pikachu->move1);
-  printmovedata(pikachu->move2);
-  printmovedata(pikachu->move3);
-  printmovedata(pikachu->move4);
-  }
+  /* printmovedata(pikachu->move2); */
+  /* printmovedata(pikachu->move3); */
+  /* printmovedata(pikachu->move4); */
   
 }
 
