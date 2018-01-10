@@ -30,21 +30,21 @@ int stat_formula(int base, int ev, int iv, int level) {
 }
 
 // Sets all the stats of a Pokemon (ONLY FOR USE AS A HELPER FUNCTION, this will break if not called in the right place.)
-void set_stats(struct Pokemon* p) {
+void set_stats(struct Pokemon* p, char *data) {
   int ev = 0; //for future use
   int iv = 0; //same
   int level = 50; //saaaaame
 
   //hp is special
-  p->maxhp = (2 * atoi(strtok(NULL, ",")) + iv + ev/4) * level / 100 + level + 10;
+  p->maxhp = (2 * atoi(strsep(&data, ",")) + iv + ev/4) * level / 100 + level + 10;
   p->currhp = p->maxhp;
 
   //other stats all use the same formula
-  p->atk = stat_formula( atoi(strtok(NULL, ",")), ev, iv, level);
-  p->def = stat_formula( atoi(strtok(NULL, ",")), ev, iv, level);
-  p->spatk = stat_formula( atoi(strtok(NULL, ",")), ev, iv, level);
-  p->spdef = stat_formula( atoi(strtok(NULL, ",")), ev, iv, level);
-  p->speed = stat_formula( atoi(strtok(NULL, ",")), ev, iv, level);
+  p->atk = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
+  p->def = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
+  p->spatk = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
+  p->spdef = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
+  p->speed = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
 
   //unused
   p->accuracy = 0;
@@ -58,11 +58,11 @@ struct Pokemon *construct_pokemon(int id_num) {
   char *data = get_poke_entry(id_num); //grab comma separated data
 
   // the following must be executed IN THIS ORDER
-  p->id=atoi(strtok(data, ","));
-  p->name=strtok(NULL, ",");
-  p->type1=atoi(strtok(NULL, ","));
-  p->type2=atoi(strtok(NULL, ","));
-  set_stats(p); //DO NOT USE OUTSIDE OF THIS FUNCTION
+  p->id=atoi(strsep(&data, ","));
+  p->name=strsep(&data, ",");
+  p->type1=atoi(strsep(&data, ","));
+  p->type2=atoi(strsep(&data, ","));
+  set_stats(p, data);
   setMoves(p, 1, 2, 3, 4);
   return p;
 }
@@ -151,7 +151,7 @@ int main() {
 
   int i = 5;
   while (--i){
-  struct Pokemon *pikachu = construct_pokemon(4);
+  struct Pokemon *pikachu = construct_pokemon(i);
   print_pokemon_data(pikachu);
   
   //struct Pokemon *mewTOO = construct_pokemon(MEWTWO_IDNO);
@@ -164,7 +164,6 @@ int main() {
   printmovedata(pikachu->move3);
   printmovedata(pikachu->move4);
   }
-  
   
 }
 
