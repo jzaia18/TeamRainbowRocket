@@ -10,15 +10,18 @@ char *get_poke_entry(int num) {
   // read the file in (exact size)
   struct stat ap;
   stat(POKEDATA_CSV, &ap);
-  char buf[ap.st_size+15];
-  read(fd, buf, sizeof(buf));
+  char file[ap.st_size+15];
+  read(fd, file, sizeof(file));
 
   // Skip the 1st line (header line)
-  strtok(buf, "\n");
+  //strtok(buf, "\n");
+
+  char *buf = file;
+  strsep(&buf, "\n");
   close(fd);
   int i = num - 1;
-  while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
-  return strtok(NULL, "\n"); // Return the correct entry
+  while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
+  return strsep(&buf, "\n"); // Return the correct entry
 }
 
 // Plugs numbers in to the pokemon stat formula
@@ -88,16 +91,19 @@ char *get_move_entry(int num) {
     // read the file in (exact size)
     struct stat ap;
     stat(MOVEDATA_CSV, &ap);
-    char buf[ap.st_size+15];
-    read(fd, buf, sizeof(buf));
+    char file[ap.st_size+15];
+    read(fd, file, sizeof(file));
     
     // Skip the 1st line (header line)
-    strtok(buf, "\n");
+    //strtok(buf, "\n");
 
+    char *buf = file;
+
+    strsep(&buf, "\n");
     close(fd);
     int i = num - 1;
-    while (i-- > 0) strtok(NULL, "\n"); // Run down the entries in the list
-    return strtok(NULL, "\n"); // Return the correct entry
+    while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
+    return strsep(&buf, "\n"); // Return the correct entry
 }
 
 struct Move *construct_move(int MOVE_ID){
@@ -105,13 +111,14 @@ struct Move *construct_move(int MOVE_ID){
 
   char *data = get_move_entry(MOVE_ID); //grabs data for the move
 
-  m->id = atoi(strtok(data, ","));
-  m->name = strtok(NULL, ",");
-  m->type = atoi(strtok(NULL, ","));
-  m->power = atoi(strtok(NULL, ","));
-  m->pp = atoi(strtok(NULL, ","));
-  m->acc = atoi(strtok(NULL, ","));
-  m->priority = atoi(strtok(NULL, ","));
+  
+  m->id = atoi(strsep(&data, ","));
+  m->name = strsep(&data, ",");
+  m->type = atoi(strsep(&data, ","));
+  m->power = atoi(strsep(&data, ","));
+  m->pp = atoi(strsep(&data, ","));
+  m->acc = atoi(strsep(&data, ","));
+  m->priority = atoi(strsep(&data, ","));
 
     //still needs more stuffs
 
@@ -141,9 +148,12 @@ void printmovedata(struct Move *m){
 
 // This main is a test, this file is NOT the main file
 int main() {
-  struct Pokemon *pikachu = construct_pokemon(PIKACHU_IDNO);
-  print_pokemon_data(pikachu);
 
+  int i = 5;
+  while (--i){
+  struct Pokemon *pikachu = construct_pokemon(4);
+  print_pokemon_data(pikachu);
+  
   //struct Pokemon *mewTOO = construct_pokemon(MEWTWO_IDNO);
   //printf("mewtwo id: %d\n", MEWTWO_IDNO);
   //print_pokemon_data(mewTOO);
@@ -153,6 +163,8 @@ int main() {
   printmovedata(pikachu->move2);
   printmovedata(pikachu->move3);
   printmovedata(pikachu->move4);
+  }
+  
   
 }
 
