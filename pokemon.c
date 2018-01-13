@@ -59,7 +59,7 @@ struct Pokemon *construct_pokemon(int id_num) {
 
   // the following must be executed IN THIS ORDER
   p->id=atoi(strsep(&data, ","));
-  p->name=strsep(&data, ",");
+  p->name=strcpy(malloc(50), strsep(&data, ","));
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
   set_stats(p, data);
@@ -78,32 +78,30 @@ void print_pokemon_data(struct Pokemon *p) {
   printf("  spatk: %d\t", p->spatk);
   printf("  spdef: %d\t", p->spdef);
   printf("  speed: %d\n", p->speed);
-  printf("  Moves:\n\t%s\t\t%s\n%s\t%s\n", p->move1->name, p->move2->name, p->move3->name, p->move4->name);
+  printf("  Moves:\n\t1) %s\t2) %s\n\t3) %s\t4) %s\n", p->move1->name, p->move2->name, p->move3->name, p->move4->name);
 }
 
-//TODO
-
 char *get_move_entry(int num) {
-    int fd = open(MOVEDATA_CSV, O_RDONLY);
-    if (num < 1 || num > MAX_MOVE_IDNO)
-        return "";
-    
-    // read the file in (exact size)
-    struct stat ap;
-    stat(MOVEDATA_CSV, &ap);
-    char file[ap.st_size+15];
-    read(fd, file, sizeof(file));
-    
-    // Skip the 1st line (header line)
-    //strtok(buf, "\n");
+  int fd = open(MOVEDATA_CSV, O_RDONLY);
+  if (num < 1 || num > MAX_MOVE_IDNO)
+    return "";
 
-    char *buf = file;
+  // read the file in (exact size)
+  struct stat ap;
+  stat(MOVEDATA_CSV, &ap);
+  char file[ap.st_size+15];
+  read(fd, file, sizeof(file));
 
-    strsep(&buf, "\n");
-    close(fd);
-    int i = num - 1;
-    while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
-    return strsep(&buf, "\n"); // Return the correct entry
+  // Skip the 1st line (header line)
+  //strtok(buf, "\n");
+
+  char *buf = file;
+
+  strsep(&buf, "\n");
+  close(fd);
+  int i = num - 1;
+  while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
+  return strsep(&buf, "\n"); // Return the correct entry
 }
 
 struct Move *construct_move(int MOVE_ID){
@@ -111,23 +109,14 @@ struct Move *construct_move(int MOVE_ID){
 
   char *data = get_move_entry(MOVE_ID); //grabs data for the move
 
-  printf("data: %s\n", data);
-
-  char * temp;
-  
   m->id = atoi(strsep(&data, ","));
-
-  temp = strsep(&data, ","); //sorry rihui, i was testing stuff
-  m->name = (temp);
-  printf("data: %s\t temp:%s\n", data, temp);
-  
+  m->name = strcpy(malloc(50),strsep(&data, ","));
   m->type = atoi(strsep(&data, ","));
   m->power = atoi(strsep(&data, ","));
   m->pp = atoi(strsep(&data, ","));
   m->acc = atoi(strsep(&data, ","));
   m->priority = atoi(strsep(&data, ","));
-  
-    //still needs more stuffs
+  //still needs more stuffs
 
   return m;
 }
@@ -141,7 +130,6 @@ void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4)
   p->move2 = MOVE2;
   p->move3 = MOVE3;
   p->move4 = MOVE4;
-    
 }
 void printmovedata(struct Move *m){
   printf("Printing the information for the move %s\n", m->name);
@@ -151,6 +139,20 @@ void printmovedata(struct Move *m){
   printf("\tpower: %d\n", m->power);
   printf("\taccuracy: %f\n", m->acc);
   printf("\tpriority: %d\n", m->priority);
+}
+
+void free_move(struct Move* m) {
+  free(m->name);
+  free(m);
+}
+
+void free_pokemon(struct Pokemon* p) {
+  free(p->name);
+  free_move(p->move1);
+  free_move(p->move2);
+  free_move(p->move3);
+  free_move(p->move4);
+  free(p);
 }
 
 // This main is a test, this file is NOT the main file
@@ -165,11 +167,7 @@ int main() {
   //printf("mewtwo id: %d\n", MEWTWO_IDNO);
   //print_pokemon_data(mewTOO);
 
-  
   printmovedata(pikachu->move1);
-  /* printmovedata(pikachu->move2); */
-  /* printmovedata(pikachu->move3); */
-  /* printmovedata(pikachu->move4); */
   
+  free_pokemon(pikachu);
 }
-
