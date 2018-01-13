@@ -63,7 +63,7 @@ struct Pokemon *construct_pokemon(int id_num) {
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
   set_stats(p, data);
-  setMoves(p, 1, 2, 3, 4);
+  set_moves(p, 1, 2, 3, 4);
   return p;
 }
 
@@ -120,18 +120,20 @@ struct Move *construct_move(int MOVE_ID){
 
   return m;
 }
-void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4){
-  struct Move *MOVE1 = construct_move(MOVE_1);
-  struct Move *MOVE2 = construct_move(MOVE_2);
-  struct Move *MOVE3 = construct_move(MOVE_3);
-  struct Move *MOVE4 = construct_move(MOVE_4);
 
-  p->move1 = MOVE1;
-  p->move2 = MOVE2;
-  p->move3 = MOVE3;
-  p->move4 = MOVE4;
+void set_moves(struct Pokemon *p, int move_1, int move_2, int move_3, int move_4){
+  struct Move *move1 = construct_move(move_1);
+  struct Move *move2 = construct_move(move_2);
+  struct Move *move3 = construct_move(move_3);
+  struct Move *move4 = construct_move(move_4);
+
+  p->move1 = move1;
+  p->move2 = move2;
+  p->move3 = move3;
+  p->move4 = move4;
 }
-void printmovedata(struct Move *m){
+
+void print_move_data(struct Move *m){
   printf("Printing the information for the move %s\n", m->name);
   printf("\tid: %d\n", m->id);
   printf("\tname: %s\n", m->name);
@@ -155,6 +157,7 @@ void free_pokemon(struct Pokemon* p) {
   free(p);
 }
 
+/*
 // This main is a test, this file is NOT the main file
 int main() {
 
@@ -162,12 +165,13 @@ int main() {
   //  while (--i){
   struct Pokemon *pikachu = construct_pokemon(PIKACHU_IDNO);
   print_pokemon_data(pikachu);
-  
+
   //struct Pokemon *mewTOO = construct_pokemon(MEWTWO_IDNO);
   //printf("mewtwo id: %d\n", MEWTWO_IDNO);
   //print_pokemon_data(mewTOO);
 
-  printmovedata(pikachu->move1);
-  
+  print_move_data(pikachu->move1);
+
   free_pokemon(pikachu);
 }
+*/

@@ -48,6 +48,9 @@
 #define POKEDATA_CSV "pokedata.csv"
 #define MOVEDATA_CSV "moves.csv"
 
+
+//======================= Typedefs =======================
+
 struct Move {
   char *name; int id;
   char type; //of the move
@@ -66,12 +69,16 @@ struct Pokemon {
   struct Move *move1; struct Move *move2; struct Move *move3; struct Move *move4; //moves
 };
 
+
+//======================= Versatile Functions =======================
+
+
 // rand() but restricts nums [a,b]
-double randr(int a, int b) {
+static double randr(int a, int b) { //static is a slight cheat to get past the compiler here
   return a + (b-a+1) * rand()/((double) RAND_MAX); }
 
 // converts type id into a readable string
-char *type_lookup(int typeid){
+static char *type_lookup(int typeid){ //static is a slight cheat to get past the compiler here
   switch(typeid) {
   case NORMAL_TYPENO:
     return "Normal";
@@ -113,4 +120,10 @@ char *type_lookup(int typeid){
   return "";
 }
 
-void setMoves(struct Pokemon *p, int MOVE_1, int MOVE_2, int MOVE_3, int MOVE_4);
+//======================= pokemon.c =======================
+
+struct Pokemon *construct_pokemon(int id_num);
+void print_pokemon_data(struct Pokemon *p);
+void set_moves(struct Pokemon*p, int move_1, int move_2, int move_3, int move_4);
+void print_move_data(struct Move *m);
+void free_pokemon(struct Pokemon *p);
