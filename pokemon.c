@@ -3,6 +3,7 @@
 // I have decided to write my own csv functions, the ones I found online did not work well for our purposes.
 // Extracts one comma-separated line from the csv
 char *get_poke_entry(int num) {
+
   int fd = open(POKEDATA_CSV, O_RDONLY);
   if (num < 1 || num > MAX_POKEMON_IDNO)
     return "";
@@ -14,14 +15,15 @@ char *get_poke_entry(int num) {
   read(fd, file, sizeof(file));
 
   // Skip the 1st line (header line)
-  //strtok(buf, "\n");
-
   char *buf = file;
   strsep(&buf, "\n");
   close(fd);
+
   int i = num - 1;
   while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
-  return strsep(&buf, "\n"); // Return the correct entry
+
+  char *ret = strcpy(malloc(1000), strsep(&buf, "\n"));
+  return ret; // Return the correct entry
 }
 
 // Plugs numbers in to the pokemon stat formula
@@ -53,9 +55,13 @@ void set_stats(struct Pokemon* p, char *data) {
 
 // Constructs a pokemon by using data from the csv
 struct Pokemon *construct_pokemon(int id_num) {
+  if (id_num < 1 || id_num > MAX_POKEMON_IDNO)
+    return NULL;
+
   struct Pokemon *p = malloc(sizeof(struct Pokemon)); //no need for default zeros
 
-  char *data = get_poke_entry(id_num); //grab comma separated data
+  char *to_free = get_poke_entry(id_num); //grab comma separated data
+  char *data = to_free;
 
   // the following must be executed IN THIS ORDER
   p->id=atoi(strsep(&data, ","));
@@ -63,12 +69,18 @@ struct Pokemon *construct_pokemon(int id_num) {
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
   set_stats(p, data);
-  set_moves(p, 1, 2, 3, 4);
+  set_moves(p, 1, 2, 3, 4); //TODO
+
+  free(to_free);
+
   return p;
 }
 
 // Print out all information of a given pokemon for easy viewing
 void print_pokemon_data(struct Pokemon *p) {
+  if (!p)
+    return;
+
   printf("Printing the information for this %s (#%d):\n", p->name, p->id);
   printf("Type: %s %s\n", type_lookup(p->type1), type_lookup(p->type2));
   printf("Stats:\n");
@@ -101,13 +113,16 @@ char *get_move_entry(int num) {
   close(fd);
   int i = num - 1;
   while (i-- > 0) strsep(&buf, "\n"); // Run down the entries in the list
-  return strsep(&buf, "\n"); // Return the correct entry
+
+  char *ret = strcpy(malloc(1000), strsep(&buf, "\n"));
+  return ret; // Return the correct entry
 }
 
 struct Move *construct_move(int MOVE_ID){
   struct Move *m = malloc(sizeof(struct Move));
 
-  char *data = get_move_entry(MOVE_ID); //grabs data for the move
+  char *to_free = get_move_entry(MOVE_ID); //grabs data for the move
+  char *data = to_free;
 
   m->id = atoi(strsep(&data, ","));
   m->name = strcpy(malloc(50),strsep(&data, ","));
@@ -118,6 +133,7 @@ struct Move *construct_move(int MOVE_ID){
   m->priority = atoi(strsep(&data, ","));
   //still needs more stuffs
 
+  free(to_free);
   return m;
 }
 

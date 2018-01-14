@@ -27,4 +27,4 @@ valgrind: recompile
 	valgrind --leak-check=full ./pokemonCup
 
 gdb: recompile
-	gdb --leak-check=full ./pokemonCup
+	gdb ./pokemonCup
