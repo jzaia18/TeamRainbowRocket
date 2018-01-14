@@ -70,15 +70,17 @@ struct Pokemon {
 };
 
 
-//======================= Versatile Functions =======================
+//======================= Versatile (used across several files) =======================
+//static is a slight cheat here required to get past the compiler here
 
+static char* cutoff = "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=";
 
 // rand() but restricts nums [a,b]
-static double randr(int a, int b) { //static is a slight cheat to get past the compiler here
+static double randr(int a, int b) {
   return a + (b-a+1) * rand()/((double) RAND_MAX); }
 
 // converts type id into a readable string
-static char *type_lookup(int typeid){ //static is a slight cheat to get past the compiler here
+static char *type_lookup(int typeid){
   switch(typeid) {
   case NORMAL_TYPENO:
     return "Normal";
