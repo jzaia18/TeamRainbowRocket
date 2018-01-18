@@ -53,3 +53,7 @@ dkms.conf
 
 # Extra datafiles
 pokecsvs/
+
+# things used to run the program
+*.o
+pokemonCup
