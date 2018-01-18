@@ -1,8 +1,11 @@
 run: all
 	./pokemonCup
 
-all: pokemon.o main.o battleutils.o
-	gcc -g -o pokemonCup main.o pokemon.o battleutils.o
+all: pokemon.o main.o battleutils.o client.o
+	gcc -g -o pokemonCup main.o pokemon.o battleutils.o client.o
+
+serversetup: server.o
+	gcc -o server server.o
 
 rerun: recompile
 	./pokemonCup
@@ -18,6 +21,12 @@ main.o: main.c
 
 battleutils.o: battleutils.c
 	gcc -g -c battleutils.c
+
+client.o: client.c
+	gcc -c client.c
+
+server.o: server.c
+	gcc -c server.c
 
 clean:
 	rm *.o
