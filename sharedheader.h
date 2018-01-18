@@ -48,6 +48,8 @@
 #define POKEDATA_CSV "pokedata.csv"
 #define MOVEDATA_CSV "moves.csv"
 
+#define MAX_LEARNSET_SIZE 128
+#define POKEDATA_LEARNSET_INDEX 13
 
 //======================= Typedefs =======================
 
