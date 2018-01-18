@@ -1,3 +1,12 @@
 #include "sharedheader.h"
 
-int main(
+int clientsetup() {
+
+  int server_socket;
+  char buffer[BUFFER_SIZE];
+  
+  //
+
+
+
+}
