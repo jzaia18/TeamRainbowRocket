@@ -39,37 +39,33 @@ char *learnset_lookup(int poke_id) {
   return ret;
 }
 
+// Converts csv entry into an array of ints
 int *get_learnset(int poke_id) {
   //getting data
   int *ret = malloc(MAX_LEARNSET_SIZE + 1);
   char *moves = learnset_lookup(poke_id);
-  char *tmp = moves;
+  char **tmp = &moves;
 
-  char *c;
-  
+  char *c = 0;
   int i = 0;
 
-  while(moves){
-    c = strsep(&moves, ";");
+  while( (c = strsep(&moves, ";")) ){
     ret[i] = atoi(c);
     i++;
   }
-  //printf("test");
 
-  free(tmp);
+  ret[i] = 0;
+
+  free(*tmp);
   return ret;
 }
 
 
 int main() {
-  //learnset_lookup(150);
-  
-  //printf("%s\n", learnset_lookup(150));
+  printf("%s\n", learnset_lookup(150));
   int *data = get_learnset(150);
-  
-  int i = 5;
-  while(i--){
-    printf("%d\n",data[i]);
-  }
-  
+
+  int i = 0;
+  while(data[i++])
+    printf("%d\t", data[i]);
 }
