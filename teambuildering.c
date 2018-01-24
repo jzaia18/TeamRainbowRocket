@@ -1,7 +1,13 @@
 #include "sharedheader.h"
 
-char **get_move_entries(int *move_ids) {
-  return NULL;
+void print_move_entry(struct Move *m) {
+  if (!m)
+    return;
+  printf("%3d: %12s    ", m->id, m->name);
+  printf("type: %8s   ", type_lookup(m->type));
+  printf("power: %3d   ", m->power);
+  printf("accuracy: %3d   ", (int) m->acc);
+  printf("priority: %d\n", m->priority);
 };
 
 char *learnset_lookup(int poke_id) {
@@ -27,7 +33,9 @@ char *learnset_lookup(int poke_id) {
   i = POKEDATA_LEARNSET_INDEX;
   while (--i > 0) strsep(&line, ",");
 
-  char *ret = strcpy(malloc(MAX_LEARNSET_SIZE*4), strsep(&line, ",") + 1);
+  char *ret = malloc(MAX_LEARNSET_SIZE * sizeof(int));
+  strcpy(ret, strsep(&line, ",") + 1);
+
   *strchr(ret, '"') = 0;
 
   //printf("Finished running\n");
@@ -42,9 +50,9 @@ char *learnset_lookup(int poke_id) {
 // Converts csv entry into an array of ints
 int *get_learnset(int poke_id) {
   //getting data
-  int *ret = malloc(MAX_LEARNSET_SIZE + 1);
+  int *ret = malloc(MAX_LEARNSET_SIZE * sizeof(int) + 1);
   char *moves = learnset_lookup(poke_id);
-  char **tmp = &moves;
+  char *tmp = moves;
 
   char *c = 0;
   int i = 0;
@@ -56,16 +64,31 @@ int *get_learnset(int poke_id) {
 
   ret[i] = 0;
 
-  free(*tmp);
+  free(tmp);
   return ret;
 }
 
+void print_move_choices(int pokemon_id) {
+  int *moves = get_learnset(pokemon_id);
+  int i = 0;
+  while (moves[i]) {
+    struct Move *m = construct_move(moves[i]);
+    print_move_entry(m);
+    free_move(m);
+    i++;
+  }
+  printf("\n");
 
-int main() {
+  free(moves);
+}
+
+/*int main() {
   printf("%s\n", learnset_lookup(150));
   int *data = get_learnset(150);
 
   int i = 0;
   while(data[i++])
-    printf("%d\t", data[i]);
-}
+  printf("%d\t", data[i]);
+  print_move_choices(150);
+  }
+*/

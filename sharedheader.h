@@ -51,6 +51,9 @@
 #define MAX_LEARNSET_SIZE 128
 #define POKEDATA_LEARNSET_INDEX 13
 
+#define FIRST_ZMOVE_ID 622
+#define LAST_ZMOVE_ID 658
+
 //======================= Typedefs =======================
 
 struct Move {
@@ -131,3 +134,9 @@ void print_pokemon_data(struct Pokemon *p);
 void set_moves(struct Pokemon*p, int move_1, int move_2, int move_3, int move_4);
 void print_move_data(struct Move *m);
 void free_pokemon(struct Pokemon *p);
+
+struct Move *construct_move(int move_id);
+
+//======================= teambuildering.c =======================
+void print_move_choices(int pokemon_id);
+void free_move(struct Move*m);

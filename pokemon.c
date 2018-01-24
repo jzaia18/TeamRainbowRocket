@@ -118,10 +118,20 @@ char *get_move_entry(int num) {
   return ret; // Return the correct entry
 }
 
-struct Move *construct_move(int MOVE_ID){
+struct Move *construct_move(int move_id){
+  if (move_id >= FIRST_ZMOVE_ID) {
+    if (move_id <= LAST_ZMOVE_ID)
+      return NULL;
+    else
+      move_id -= LAST_ZMOVE_ID - FIRST_ZMOVE_ID + 1;
+  }
+
+  if (move_id > MAX_MOVE_IDNO || move_id < 1)
+    return NULL;
+
   struct Move *m = malloc(sizeof(struct Move));
 
-  char *to_free = get_move_entry(MOVE_ID); //grabs data for the move
+  char *to_free = get_move_entry(move_id); //grabs data for the move
   char *data = to_free;
 
   m->id = atoi(strsep(&data, ","));

@@ -44,4 +44,7 @@ int main() {
   if (p)
     free_pokemon(p);
   free(buf);
+
+  printf("Printing all move choices for Mewtwo...\n");
+  print_move_choices(150);
 }

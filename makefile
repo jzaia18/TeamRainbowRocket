@@ -1,8 +1,8 @@
 run: all
 	./pokemonCup
 
-all: pokemon.o main.o battleutils.o client.o
-	gcc -g -o pokemonCup main.o pokemon.o battleutils.o client.o
+all: pokemon.o main.o battleutils.o teambuildering.o
+	gcc -g -o pokemonCup main.o pokemon.o battleutils.o teambuildering.o
 
 serversetup: server.o
 	gcc -o server server.o
@@ -18,6 +18,9 @@ pokemon.o: main.o
 
 main.o: main.c
 	gcc -g -c main.c
+
+teambuildering.o: teambuildering.c
+	gcc -g -c teambuildering.c
 
 battleutils.o: battleutils.c
 	gcc -g -c battleutils.c
