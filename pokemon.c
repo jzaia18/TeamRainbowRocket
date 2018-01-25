@@ -93,6 +93,7 @@ void print_pokemon_data(struct Pokemon *p) {
   printf("  Moves:\n\t1) %s\t2) %s\n\t3) %s\t4) %s\n", p->move1->name, p->move2->name, p->move3->name, p->move4->name);
 }
 
+// Returns 1 line from the moves csv
 char *get_move_entry(int num) {
   int fd = open(MOVEDATA_CSV, O_RDONLY);
   if (num < 1 || num > MAX_MOVE_IDNO)
@@ -118,6 +119,7 @@ char *get_move_entry(int num) {
   return ret; // Return the correct entry
 }
 
+// Constructs and mallocs a struct Move
 struct Move *construct_move(int move_id){
   if (move_id >= FIRST_ZMOVE_ID) {
     if (move_id <= LAST_ZMOVE_ID)
@@ -147,6 +149,7 @@ struct Move *construct_move(int move_id){
   return m;
 }
 
+// sets the 4 moves of a struct Pokemon
 void set_moves(struct Pokemon *p, int move_1, int move_2, int move_3, int move_4){
   struct Move *move1 = construct_move(move_1);
   struct Move *move2 = construct_move(move_2);
@@ -159,6 +162,7 @@ void set_moves(struct Pokemon *p, int move_1, int move_2, int move_3, int move_4
   p->move4 = move4;
 }
 
+// Prints contents of a struct Move
 void print_move_data(struct Move *m){
   printf("Printing the information for the move %s\n", m->name);
   printf("\tid: %d\n", m->id);
@@ -169,11 +173,13 @@ void print_move_data(struct Move *m){
   printf("\tpriority: %d\n", m->priority);
 }
 
+// frees a move
 void free_move(struct Move* m) {
   free(m->name);
   free(m);
 }
 
+// Frees a pokemon and its moves
 void free_pokemon(struct Pokemon* p) {
   free(p->name);
   free_move(p->move1);

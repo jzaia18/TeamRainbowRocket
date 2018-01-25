@@ -26,8 +26,10 @@ int main() {
 
   int size = 0;
   printf("How large of a team do you want? (Choose between 1 and 6) ");
-  while ((size = get_user_input_int(buf)) < 1 || size > 6); //retry until a valid number is input
+  while ((size = get_user_input_int(buf)) < 1 || size > 6) //retry until a valid number is input
+    printf("Pokemon teams must have 1-6 pokemon: ");
 
+  printf("\n%s\n\n", cutoff);
   struct Pokemon **team = create_team(size);
 
   int i = 0;
