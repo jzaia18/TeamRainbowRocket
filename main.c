@@ -45,6 +45,6 @@ int main() {
     free_pokemon(p);
   free(buf);
 
-  printf("Printing all move choices for Mewtwo...\n");
-  print_move_choices(150);
+  printf("Printing all move choices...\n");
+  print_move_choices(pokemon_num);
 }
