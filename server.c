@@ -23,7 +23,17 @@ int main(int argc, char ** argv){
     for (; i < NUM_OF_SOCKETS; i++){ //connect
       if (connected_sockets[i] == -1){ //if connected_socket[i] is not occupied)
 	printf("trying server_connect, i = %d\n", i);
-	connected_sockets[i] = server_connect(listen_sockets[i]);
+	
+	/*================================================================================================================
+	  HALP! server_connect will not work on the second pass (ie when i = 1)
+	      Possible places where it went wrong:
+	          networking.c -> client_setup():
+                      Client did not properly cycle through possible ports to look for an open one
+		  networking.c -> server_connect():
+		      Server failed to accept connection on port 5002 (when i = 1)
+	  ================================================================================================================*/
+	
+	connected_sockets[i] = server_connect(listen_sockets[i]); 
 	printf("server_connect\n");
       }      
     }
