@@ -16,7 +16,9 @@ void error_check( int i, char *s ) {
   Return:
     int Socket Descriptor
 ~~~~~~~~~~~~~~~~~~~~~~~~~*/
-int server_setup() {
+int *server_setup() {
+  int n;
+
   //used for incrementation and storage
   int i = 0;
   char s[64];
@@ -29,32 +31,66 @@ int server_setup() {
 
   //create the sockets
   for (; i < numOfSockets; i++){
-    sd[i] = socket( AF_INET, SOCK_STREAM, 0 );
-    sprintf( s, "Server socket[%d] creation", i);
-    error_check( sd[i], s );
-    printf("[server] socket[%d] created\n", i);
+    sd[i] = socket( AF_INET, SOCK_STREAM, 0 ); 
+    sprintf( s, "Server socket[%d] creation", i); 
+    error_check( sd[i], s ); 
+    printf("[server] socket[%d] created\n", i); 
   
-  
-    //setup structs for getaddrinfo
-    struct addrinfo *hints, *results;
-    hints = (struct addrinfo *)calloc(1, sizeof(struct addrinfo));
-    hints->ai_family = AF_INET;  //IPv4 address
-    hints->ai_socktype = SOCK_STREAM;  //TCP socket
-    hints->ai_flags = AI_PASSIVE;  //Use all valid addresses
-    getaddrinfo(NULL, 5001 + i, hints, &results); //NULL -> local address
+    //setup structs for getaddrinfo 
+    struct addrinfo *hints, *results; 
+    hints = (struct addrinfo *)calloc(1, sizeof(struct addrinfo)); 
+    hints->ai_family = AF_INET;  //IPv4 address 
+    hints->ai_socktype = SOCK_STREAM;  //TCP socket 
+    hints->ai_flags = AI_PASSIVE;  //Use all valid addresses 
+    getaddrinfo(NULL, 5001 + i, hints, &results); //NULL -> local address 
 
-    //bind socket[i] to address and port
-    i = bind( sd[0], results->ai_addr, results->ai_addrlen );
-    error_check( i, "server binding" );
-    printf("[server] socket bound\n");
+    //bind socket[i] to address and port 
+    n = bind( sd[0], results->ai_addr, results->ai_addrlen ); 
+    error_check( n, "server binding" ); 
+    printf("[server] socket bound\n"); 
 
-    //set socket to listen state
-    i = listen(sd, 10);
-    error_check( i, "server listen" );
+    //set socket to listen state 
+    n = listen(sd, 10); 
+    error_check( n, "server listen" ); 
     printf("[server] socket in listen state\n");
 
-    //free the structs used by getaddrinfo
-    free(hints);
-    freeaddrinfo(results);
-    return sd;
+    //free the structs used by getaddrinfo 
+    free(hints); 
+    freeaddrinfo(results); 
   }
+  return sd;
+}
+
+/*=========================
+  server_connect
+  args: int sd
+  sd should refer to a socket in the listening state
+  run the accept call
+  returns the socket descriptor for the new socket connected
+  to the client.
+  =========================*/
+int server_connect(int sd) {
+
+}
+
+/*=========================
+  client_setup
+  args: int * to_server
+  to_server is a string representing the server address
+  create and connect a socket to a server socket that is
+  in the listening state
+  returns the file descriptor for the socket
+  =========================*/
+int client_setup(char * server) {
+
+  //create the socket
+
+  //run getaddrinfo
+  /* hints->ai_flags not needed because the client
+     specifies the desired address. */
+
+
+  //connect to the server
+  //connect will bind the socket for us
+  
+}
