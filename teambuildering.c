@@ -3,7 +3,7 @@
 void print_move_entry(struct Move *m) {
   if (!m)
     return;
-  printf("%3d: %12s    ", m->id, m->name);
+  printf("%3d: %14s    ", m->id, m->name);
   printf("type: %8s   ", type_lookup(m->type));
   printf("power: %3d   ", m->power);
   printf("accuracy: %3d   ", (int) m->acc);
@@ -91,6 +91,21 @@ void free_team(struct Pokemon** team) {
   free(team);
 }
 
+int move_is_legal(int pokenum, int movenum) {
+  int *temp = get_learnset(pokenum);
+
+  int i = 0;
+  while (temp[i]) {
+    if (movenum == temp[i++]) {
+      free(temp);
+      return 1; //is legal
+    }
+  }
+
+  free(temp);
+  return 0; //is illegal
+}
+
 struct Pokemon **create_team(int size) {
   if (size > 6 || size < 1) {
     printf("Pokemon teams must have 1-6 pokemon\n");
@@ -105,21 +120,26 @@ struct Pokemon **create_team(int size) {
   while (i < size) {
     int curr_pokemon_num;
     printf("Please input the ID number of the pokemon you want [1,721]: ");
-    while ((curr_pokemon_num = get_user_input_int(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO); //retry until a number is input
+    while ((curr_pokemon_num = get_user_input_int(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO)
+      printf("Illegal input, please choose a valid number: "); //retry until a number is input
     printf("You selected pokemon #%d\n", curr_pokemon_num);
-    printf("Please select the move you want. Moves for pokemon #%d\n:", curr_pokemon_num);
+    printf("Please select the move you want. Moves for pokemon #%d:\n", curr_pokemon_num);
     print_move_choices(curr_pokemon_num);
 
     int m1, m2, m3, m4;
-    printf("Choose move number 1: \n");
-    m1 = get_user_input_int(buf);
-    printf("Choose move number 2: \n");
-    m2 = get_user_input_int(buf);
-    printf("Choose move number 3: \n");
-    m3 = get_user_input_int(buf);
-    printf("Choose move number 4: \n");
-    m4 = get_user_input_int(buf);
-    
+    printf("\nChoose move number 1: ");
+    while (!move_is_legal(curr_pokemon_num, m1 = get_user_input_int(buf)))
+      printf("Illegal input, please choose a valid number: ");
+    printf("\nChoose move number 2: ");
+    while (!move_is_legal(curr_pokemon_num, m2 = get_user_input_int(buf)) || m2 == m1)
+      printf("Illegal input, please choose a valid number: ");
+    printf("\nChoose move number 3: ");
+    while (!move_is_legal(curr_pokemon_num, m3 = get_user_input_int(buf)) || m3 == m2 || m3 == m1)
+      printf("Illegal input, please choose a valid number: ");
+    printf("\nChoose move number 4: ");
+    while (!move_is_legal(curr_pokemon_num, m4 = get_user_input_int(buf)) || m4 == m3 || m4 == m2 || m4 == m1)
+      printf("Illegal input, please choose a valid number: ");
+
 
     ret[i] = construct_pokemon(curr_pokemon_num, m1, m2, m3, m4);
     i++;
@@ -127,5 +147,5 @@ struct Pokemon **create_team(int size) {
 
   free(buf);
 
-  return ret; //temp
+  return ret;
 }

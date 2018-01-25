@@ -25,7 +25,7 @@ int main() {
   char *buf = malloc(1000);
 
   int size = 0;
-  printf("How large of a team do you want? (Choose between 1 and 6)");
+  printf("How large of a team do you want? (Choose between 1 and 6) ");
   while ((size = get_user_input_int(buf)) < 1 || size > 6); //retry until a valid number is input
 
   struct Pokemon **team = create_team(size);
