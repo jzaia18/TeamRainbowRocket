@@ -22,7 +22,7 @@ int main(int argc, char ** argv){
     //printf("starting to connect\n");
     for (; i < NUM_OF_SOCKETS; i++){ //connect
       if (connected_sockets[i] == -1){ //if connected_socket[i] is not occupied)
-	printf("trying server_connect\n");
+	printf("trying server_connect, i = %d\n", i);
 	connected_sockets[i] = server_connect(listen_sockets[i]);
 	printf("server_connect\n");
       }      
