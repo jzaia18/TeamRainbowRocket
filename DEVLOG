@@ -1,0 +1,320 @@
+2018-01-25	Jake Zaia
+Update readme
+
+==========
+
+2018-01-25	Jake Zaia
+Clean up code
+
+==========
+
+2018-01-25	Jake Zaia
+Add safeties for user input, add battleutils to header
+
+==========
+
+2018-01-25	TakingTheL
+moved constants to header file
+
+==========
+
+2018-01-25	TakingTheL
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-25	TakingTheL
+worked on a selecting client
+
+==========
+
+2018-01-25	Rihui Zheng
+why
+
+==========
+
+2018-01-24	Piotr Milewski
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-24	Piotr Milewski
+return of source code :rat:
+
+==========
+
+2018-01-24	Jake Zaia
+Migrat much of main.c into a teambuilder function
+
+==========
+
+2018-01-24	Piotr Milewski
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-24	Piotr Milewski
+finished client_setup
+
+==========
+
+2018-01-24	Jake Zaia
+Fix pokemon learnsets (again)
+
+==========
+
+2018-01-24	Piotr Milewski
+fixed issues with server_setup and finished server_connect
+
+==========
+
+2018-01-24	Piotr Milewski
+finished server_setup
+
+==========
+
+2018-01-24	Piotr Milewski
+took out referenced server code
+
+==========
+
+2018-01-23	Jake Zaia
+Add more helper functions to teambuilding, fix a bug involving malloc
+
+==========
+
+2018-01-23	Jake Zaia
+Fix a bug involving free, and a duplicate entry problem
+
+==========
+
+2018-01-19	Rihui Zheng
+did stoof
+
+==========
+
+2018-01-19	Piotr Milewski
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-19	Piotr Milewski
+server work
+
+==========
+
+2018-01-18	TakingTheL
+SAVE ME PIOTR
+
+==========
+
+2018-01-18	Piotr Milewski
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-18	Jake Zaia
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-18	Jake Zaia
+temp
+
+==========
+
+2018-01-18	Piotr Milewski
+:rat:
+
+==========
+
+2018-01-18	Piotr Milewski
+created client and modified makefile to compile client/server
+
+==========
+
+2018-01-18	TakingTheL
+initialized server.c
+
+==========
+
+2018-01-18	TakingTheL
+Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-18	TakingTheL
+transfer of networking.h into our server
+
+==========
+
+2018-01-14	Jake Zaia
+Fixed malloc'ing issue
+
+==========
+
+2018-01-14	Jake Zaia
+Remove old bloated file
+
+==========
+
+2018-01-13	Jake Zaia
+Delete pokemonCup
+==========
+
+2018-01-13	Jake Zaia
+Add basic layout to main, add extra files to gitignore
+
+==========
+
+2018-01-13	Jake Zaia
+Update makefile
+
+==========
+
+2018-01-13	Jake Zaia
+Fix leaky pokemon
+
+==========
+
+2018-01-10	Jake Zaia
+Testing (nothing fixed)
+
+==========
+
+2018-01-10	Jake Zaia
+strtok -> strsep
+
+==========
+
+2018-01-10	Rihui Zheng
+Merge branch 'master' of https://github.com/jzaia18/TeamRainbowRocket
+
+==========
+
+2018-01-10	Rihui Zheng
+changed most strtok to strsep
+
+==========
+
+2018-01-10	TakingTheL
+rename and mkdir for our server
+
+==========
+
+2018-01-10	TakingTheL
+upload of dw's code
+
+==========
+
+2018-01-09	Rihui Zheng
+char-izard, why
+
+==========
+
+2018-01-08	Rihui Zheng
+added move printer
+
+==========
+
+2018-01-07	Rihui Zheng
+moves kinda works
+
+==========
+
+2018-01-07	Rihui Zheng
+progressed on moves
+
+==========
+
+2018-01-07	Jake Zaia
+Update csv to include more info
+
+==========
+
+2018-01-06	Jake Zaia
+Remove extra info from move.csv
+
+==========
+
+2018-01-06	Rihui Zheng
+didn't work
+
+==========
+
+2018-01-06	Rihui Zheng
+testing stuff
+==========
+
+2018-01-06	Rihui Zheng
+Remove usesless moves
+==========
+
+2018-01-06	Rihui Zheng
+removed incorrect move csv
+
+==========
+
+2018-01-06	Rihui Zheng
+added moves csv
+
+==========
+
+2018-01-06	Jake Zaia
+Finish pokemon constructor, add a few helper functions
+
+==========
+
+2018-01-06	Jake Zaia
+Add csv reader
+
+==========
+
+2018-01-06	Jake Zaia
+Add csv for pokemon data
+
+==========
+
+2018-01-06	Jake Zaia
+Add string.h to shared header
+
+==========
+
+2018-01-06	Jake Zaia
+Add string.h to shared header
+
+==========
+
+2018-01-02	Jake Zaia
+Add pikachu constructor. Add pokemon data
+
+==========
+
+2018-01-02	Jake Zaia
+Final additions to battle utils
+
+==========
+
+2017-12-30	Jake Zaia
+Started converting old code
+
+==========
+
+2017-12-27	Rihui Zheng
+Create DEVLOG.txt
+==========
+
+2017-12-26	Rihui Zheng
+nice design
+
+==========
+
+2017-12-22	Jake Zaia
+Add old Java code, some of which will be refactored
+
+==========
+
+2017-12-21	Jake Zaia
+Initial commit
+==========
+
