@@ -33,8 +33,14 @@ int main() {
   struct Pokemon **team = create_team(size);
 
   int i = 0;
-  while (i < size)
-    print_pokemon_data(team[i++]);
+  while (i < size) {
+    print_pokemon_data(team[i]);
+    char * s = deconstruct_to_string(team[i++]);
+    struct Pokemon *p = construct_from_string(s);
+    print_pokemon_data(p);
+    free_pokemon(p);
+    free(s);
+  }
 
   free_team(team);
   free(buf);

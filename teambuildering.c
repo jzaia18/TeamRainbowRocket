@@ -196,7 +196,7 @@ struct Pokemon **create_team(int size) {
     while ( (ev1 = get_user_input_int(buf)) < 1 || ev1 > 7)
       printf("Illegal input, please choose a valid number: ");
     printf("Choose stat 2: ");
-    while ( (ev2 = get_user_input_int(buf)) < 1 || ev2 > 7)
+    while ( (ev2 = get_user_input_int(buf)) < 1 || ev2 > 7 || ev2 == ev1)
       printf("Illegal input, please choose a valid number: ");
 
     printf("You selected pokemon #%d\n", curr_pokemon_num);

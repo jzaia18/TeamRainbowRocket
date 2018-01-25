@@ -88,6 +88,62 @@ struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4, in
   return p;
 }
 
+//Builds a struct pokemon from a string
+struct Pokemon *construct_from_string(char *pokemon_info) {
+  struct Pokemon *p = malloc(sizeof(struct Pokemon));
+
+  p->id = atoi(strsep(&pokemon_info, ","));
+  p->name = strcpy(malloc(50), strsep(&pokemon_info, ","));
+  p->type1 = atoi(strsep(&pokemon_info, ","));
+  p->type2 = atoi(strsep(&pokemon_info, ","));
+  p->maxhp = atoi(strsep(&pokemon_info, ","));
+  p->currhp = p->maxhp;
+  p->atk = atoi(strsep(&pokemon_info, ","));
+  p->def = atoi(strsep(&pokemon_info, ","));
+  p->spatk = atoi(strsep(&pokemon_info, ","));
+  p->spdef = atoi(strsep(&pokemon_info, ","));
+  p->speed = atoi(strsep(&pokemon_info, ","));
+
+  p->accuracy = 0;
+  p->evade = 0;
+
+  int m1, m2, m3, m4;
+  m1 = atoi(strsep(&pokemon_info, ","));
+  m2 = atoi(strsep(&pokemon_info, ","));
+  m3 = atoi(strsep(&pokemon_info, ","));
+  m4 = atoi(strsep(&pokemon_info, ","));
+
+  set_moves(p, m1, m2, m3 , m4);
+
+  return p;
+}
+
+
+// Turns a struct Pokemon into a string
+char *deconstruct_to_string(struct Pokemon *p) {
+  char *s = calloc(1000, 1);
+
+  sprintf(s,"%d,", p->id);
+  sprintf(s + strlen(s), "%s,", p->name);
+  sprintf(s + strlen(s), "%d,", p->type1);
+  sprintf(s + strlen(s), "%d,", p->type2);
+  sprintf(s + strlen(s), "%d,", p->maxhp);
+  sprintf(s + strlen(s), "%d,", p->atk);
+  sprintf(s + strlen(s), "%d,", p->def);
+  sprintf(s + strlen(s), "%d,", p->spatk);
+  sprintf(s + strlen(s), "%d,", p->spdef);
+  sprintf(s + strlen(s), "%d,", p->speed);
+  sprintf(s + strlen(s), "%d,", p->move1->id);
+  sprintf(s + strlen(s), "%d,", p->move2->id);
+  sprintf(s + strlen(s), "%d,", p->move3->id);
+  sprintf(s + strlen(s), "%d", p->move4->id);
+
+  printf("Deconstructed %s:\n\t%s\n", p->name, s);
+
+  return s;
+}
+
+
 // Print out all information of a given pokemon for easy viewing
 void print_pokemon_data(struct Pokemon *p) {
   if (!p)
