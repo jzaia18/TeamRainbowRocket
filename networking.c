@@ -42,8 +42,9 @@ int *server_setup() {
     hints = (struct addrinfo *)calloc(1, sizeof(struct addrinfo)); 
     hints->ai_family = AF_INET;  //IPv4 address 
     hints->ai_socktype = SOCK_STREAM;  //TCP socket 
-    hints->ai_flags = AI_PASSIVE;  //Use all valid addresses 
-    getaddrinfo(IP, PORT + i, hints, &results); //sets IP to local address 
+    hints->ai_flags = AI_PASSIVE;  //Use all valid addresses
+    sprintf( s, "%d", PORT + i);
+    getaddrinfo(IP, s, hints, &results); //sets IP to local address 
 
     //bind socket[i] to address and port 
     n = bind( sd[i], results->ai_addr, results->ai_addrlen ); 
@@ -75,10 +76,10 @@ int server_connect(int sd) {
   struct sockaddr_storage client_address;
   socklen_t sock_size = sizeof(client_address);
 
-  client_socket = accept(sd, (struct sockadd *)&client_address, &sock_size);
-  error_check(client_socket, "server acceptance");
+  client_sock = accept(sd, (struct sockaddr *)&client_address, &sock_size);
+  error_check(client_sock, "server acceptance");
 
-  return client_socket;
+  return client_sock;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,7 +95,8 @@ int client_setup(char * server) {
   //used for incrementation and storage
   int sd;
   int i = 0; //utilized for error checking and standard incrementation
-
+  char s[64];
+  
   //create the socket
   sd = socket (AF_INET, SOCK_STREAM, 0);
   error_check( sd, "client socket" );
@@ -105,7 +107,8 @@ int client_setup(char * server) {
   hints->ai_family = AF_INET;  //IPv4
   hints->ai_socktype = SOCK_STREAM;  //TCP socket
   for (; i < NUM_OF_SOCKETS; i++){
-    if (getaddrinfo(server, PORT[i], hints, &results) == 0)
+    sprintf( s, "%d", PORT + i);
+    if (getaddrinfo(server, s, hints, &results) == 0)
       break;
   }
 
