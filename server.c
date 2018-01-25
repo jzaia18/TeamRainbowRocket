@@ -19,11 +19,13 @@ int main(int argc, char ** argv){
   while(1){
     //client should try the ports in order, so this will run smoothly
     i = 0; //reset counter
+    //printf("starting to connect\n");
     for (; i < NUM_OF_SOCKETS; i++){ //connect
-      if (connected_sockets[i] + 1){ //if connected_socket[i] != -1 (connected_socket[i] is not occupied)
-	connected_sockets[i] = server_connect(listen_sockets[i]);	
-      }
-      
+      if (connected_sockets[i] == -1){ //if connected_socket[i] is not occupied)
+	printf("trying server_connect\n");
+	connected_sockets[i] = server_connect(listen_sockets[i]);
+	printf("server_connect\n");
+      }      
     }
 
     i = 0;

@@ -40,14 +40,21 @@ void ending_prompt(){
 }
 
 int main(int argc, char ** argv){
+  printf("start?\n");
   int server_socket;
   char buffer[10000];
   fd_set read_fds;
 
-  if (argc == 2)
+  printf("wat");
+  if (argc == 2){
+    printf("if\n");
     server_socket = client_setup(argv[1]);
-  else
-    server_socket = client_setup("127.0.0.1");
+  } else {
+    printf("else\n");
+    server_socket = client_setup(IP);
+  }
+
+  
 
   int started = 1;
   while (1){

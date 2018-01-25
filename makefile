@@ -1,11 +1,19 @@
 run: all
 	./pokemonCup
 
+run2: client server
+
 all: pokemon.o main.o battleutils.o teambuildering.o
 	gcc -g -o pokemonCup main.o pokemon.o battleutils.o teambuildering.o
 
 all2: pokemon.o main.o battleutils.o teambuildering.o networking.o client.o server.o
 	gcc -g -o pokemonCup main.o pokemon.o battleutils.o teambuildering.o networking.o client.o server.o
+
+client: pokemon.o battleutils.o teambuildering.o networking.o client.o main.o
+	gcc -g -o client pokemon.o battleutils.o teambuildering.o networking.o client.o main.o
+
+server: pokemon.o battleutils.o teambuildering.o networking.o server.o main.o
+	gcc -g -o server pokemon.o battleutils.o teambuildering.o networking.o server.o main.o
 
 serversetup: server.o
 	gcc -o server server.o

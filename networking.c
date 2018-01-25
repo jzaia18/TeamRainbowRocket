@@ -72,14 +72,16 @@ int *server_setup() {
     The socket descriptor for the new socket connected to the client.
   ~~~~~~~~~~~~~~~~~~~~~~~~~*/
 int server_connect(int sd) {
-  int client_sock;
+  int client_socket;
+  socklen_t sock_size;
   struct sockaddr_storage client_address;
-  socklen_t sock_size = sizeof(client_address);
+  sock_size = sizeof(client_address);
 
-  client_sock = accept(sd, (struct sockaddr *)&client_address, &sock_size);
-  error_check(client_sock, "server acceptance");
+  client_socket = accept(sd, (struct sockaddr *)&client_address, &sock_size);
+  error_check(client_socket, "server accept");
 
-  return client_sock;
+
+  return client_socket;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -91,7 +93,7 @@ int server_connect(int sd) {
     The file descriptor for the socket
   ~~~~~~~~~~~~~~~~~~~~~~~~~*/
 int client_setup(char * server) {
-
+  printf("client setup started\n");
   //used for incrementation and storage
   int sd;
   int i = 0; //utilized for error checking and standard incrementation
@@ -101,6 +103,7 @@ int client_setup(char * server) {
   sd = socket (AF_INET, SOCK_STREAM, 0);
   error_check( sd, "client socket" );
 
+  printf("socket created\n");
   //run getaddrinfo
   struct addrinfo * hints, * results;
   hints = (struct addrinfo *)calloc(1, sizeof(struct addrinfo));
@@ -108,17 +111,27 @@ int client_setup(char * server) {
   hints->ai_socktype = SOCK_STREAM;  //TCP socket
   for (; i < NUM_OF_SOCKETS; i++){
     sprintf( s, "%d", PORT + i);
-    if (getaddrinfo(server, s, hints, &results) == 0)
-      break;
+    getaddrinfo(server, s, hints, &results);
+    printf("trying port %s\n", s);
+    if (connect( sd, results->ai_addr, results->ai_addrlen ) == 0){  
+      printf("found an open port\n");
+    break;
+    }
   }
 
   //connect to the server
   //connect will bind the socket for us
   i = connect( sd, results->ai_addr, results->ai_addrlen );
   error_check( i, "client connect" );
+
+  
+  //if client1 is ready
+
+  printf("connected\n");
   
   free(hints);
   freeaddrinfo(results);
+  
 
   return sd;
 }

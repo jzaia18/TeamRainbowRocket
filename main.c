@@ -19,6 +19,7 @@ void print_opening() {
   printf("\n\nA game by Leo Liu, Piotr Milewski, Jake Zaia, & Rihui Zheng. Enjoy.\n\n%s\n\n", cutoff);
 }
 
+
 void save_team(struct Pokemon **team) {
   char *buf = malloc(1000);
   printf("What would you like to call this team? (teams with the same name will be overwritten) ");
@@ -86,6 +87,7 @@ void print_team (struct Pokemon **team) {
   }
 }
 
+/*
 int main() {
   print_opening();
 
@@ -128,3 +130,4 @@ int main() {
   free_team(team);
   free(buf);
 }
+*/
