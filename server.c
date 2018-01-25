@@ -15,11 +15,39 @@ int main(int argc, char ** argv){
   while(1){
     //client should try the ports in order, so this will run smoothly
     i = 0; //reset counter
-    for (; i < NUM_OF_SOCKETS; i++){
+    for (; i < NUM_OF_SOCKETS; i++){ //connect
       if (connected_sockets[i] + 1){ //if connected_socket[i] != -1 (connected_socket[i] is not occupied)
 	connected_sockets[i] = server_connect(listen_sockets[i]);	
-      } else if {
-	
+      }
+      
+    }
+
+    i = 0;
+    int sd = 0;
+    for(; i < NUM_OF_SOCKETS; i++){
+      if (connected_sockets[i] + 1){
+	if (sd == 0)
+	  sd = connected_sockets[i];
+	else{
+	  //connect the clients
+	  
+	  //select() modifies read_fds
+	  //we must reset it at each iteration
+	  FD_ZERO(&read_fds);
+	  FD_SET(sd, &read_fds); //add stdin to fd set
+	  FD_SET(connected_sockets[i], &read_fds); //add socket to fd set
+	  
+	  select(server_socket + 1, &read_fds, NULL, NULL, NULL);
+
+	  if (FD_ISSET(sd, &read_fds)) {
+	    read(sd, buffer, sizeof(buffer));
+	    write(server_socket[i], buffer, sizeof(buffer));
+	  }
+	  if (FD_ISSET(server_socket[i], &read_fds)) {
+	    read(server_socket[i], buffer, sizeof(buffer));
+	    write(sd, buffer, sizeof(buffer));
+	  }
+	}
       }
     }
 
