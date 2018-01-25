@@ -107,10 +107,21 @@ struct Pokemon **create_team(int size) {
     printf("Please input the ID number of the pokemon you want [1,721]: ");
     while ((curr_pokemon_num = get_user_input_int(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO); //retry until a number is input
     printf("You selected pokemon #%d\n", curr_pokemon_num);
+    printf("Please select the move you want. Moves for pokemon #%d\n:", curr_pokemon_num);
+    print_move_choices(curr_pokemon_num);
 
-    //TODO: get valid moves
+    int m1, m2, m3, m4;
+    printf("Choose move number 1: \n");
+    m1 = get_user_input_int(buf);
+    printf("Choose move number 2: \n");
+    m2 = get_user_input_int(buf);
+    printf("Choose move number 3: \n");
+    m3 = get_user_input_int(buf);
+    printf("Choose move number 4: \n");
+    m4 = get_user_input_int(buf);
+    
 
-    ret[i] = construct_pokemon(curr_pokemon_num);
+    ret[i] = construct_pokemon(curr_pokemon_num, m1, m2, m3, m4);
     i++;
   }
 

@@ -54,7 +54,7 @@ void set_stats(struct Pokemon* p, char *data) {
 }
 
 // Constructs a pokemon by using data from the csv
-struct Pokemon *construct_pokemon(int id_num) {
+struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4) {
   if (id_num < 1 || id_num > MAX_POKEMON_IDNO)
     return NULL;
 
@@ -69,7 +69,7 @@ struct Pokemon *construct_pokemon(int id_num) {
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
   set_stats(p, data);
-  set_moves(p, 1, 2, 3, 4); //TODO
+  set_moves(p, m1, m2, m3, m4);
 
   free(to_free);
 
