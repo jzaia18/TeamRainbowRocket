@@ -77,7 +77,7 @@ struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4, in
 
   // the following must be executed IN THIS ORDER
   p->id=atoi(strsep(&data, ","));
-  p->name=strcpy(malloc(50), strsep(&data, ","));
+  p->name=strcpy(malloc(60), strsep(&data, ","));
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
   set_stats(p, data, ev1, ev2);
@@ -90,10 +90,13 @@ struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4, in
 
 //Builds a struct pokemon from a string
 struct Pokemon *construct_from_string(char *pokemon_info) {
+  if (!pokemon_info || !strcmp("", pokemon_info))
+    return NULL;
+
   struct Pokemon *p = malloc(sizeof(struct Pokemon));
 
   p->id = atoi(strsep(&pokemon_info, ","));
-  p->name = strcpy(malloc(50), strsep(&pokemon_info, ","));
+  p->name = strcpy(malloc(60), strsep(&pokemon_info, ","));
   p->type1 = atoi(strsep(&pokemon_info, ","));
   p->type2 = atoi(strsep(&pokemon_info, ","));
   p->maxhp = atoi(strsep(&pokemon_info, ","));
@@ -138,7 +141,7 @@ char *deconstruct_to_string(struct Pokemon *p) {
   sprintf(s + strlen(s), "%d,", p->move3->id);
   sprintf(s + strlen(s), "%d", p->move4->id);
 
-  printf("Deconstructed %s:\n\t%s\n", p->name, s);
+  //printf("Deconstructed %s:\n\t%s\n", p->name, s);
 
   return s;
 }

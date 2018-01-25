@@ -106,11 +106,11 @@ void print_poke_choices(){
     char buf[100];
     fgets(buf, 100, stdin);
     *strchr(buf, '\n') = 0;
-    if(!strcmp(buf, "n")){
+    if(!strcasecmp(buf, "n")){
       stop = MAX(0, stop - 50);
     }
 
-    else if(!strcmp(buf, "q"))
+    else if(!strcasecmp(buf, "q"))
       break;
 
     else
