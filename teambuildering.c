@@ -68,6 +68,57 @@ int *get_learnset(int poke_id) {
   return ret;
 }
 
+void print_poke_choices(){
+
+  //printf("successfully read");
+  //reads all pokemon data
+  int fd = open(POKEDATA_CSV, O_RDONLY);
+  struct stat ap;
+  stat(POKEDATA_CSV, &ap);
+  char file[ap.st_size+15];
+  read(fd, file, sizeof(file));
+  
+  
+  //gets rid of first line
+  char *buf = file;
+  strsep(&buf, "\n");
+  close(fd);
+
+  
+  int i = MAX_POKEMON_IDNO;
+  int stop = i - 50;
+  while (i > 0){
+    while (i > stop){
+      char *line = strsep(&buf, "\n");//next entry
+      //printf("line: %s\n", line);
+      int id = atoi(strsep(&line,","));
+      char *name = strsep(&line,",");
+      int type1_no = atoi(strsep(&line, ","));
+      int type2_no = atoi(strsep(&line, ","));
+    
+      printf("id: %d\tname: %20s\ttype1: %s\ttype2: %s\n", id, name, type_lookup(type1_no), type_lookup(type2_no));
+
+      i--;
+    }
+
+    printf("Press 'n' for next page, 'q' to quit: ");
+
+    char buf[100];
+    fgets(buf, 100, stdin);
+    *strchr(buf, '\n') = 0;
+    if(!strcmp(buf, "n")){
+      stop = MAX(0, stop - 50);
+    }
+
+    else if(!strcmp(buf, "q"))
+      break;
+
+    else
+      printf("Press 'n' for next page, 'q' to quit: ");
+  }
+
+}
+
 void print_move_choices(int pokemon_id) {
   int *moves = get_learnset(pokemon_id);
   int i = 0;
@@ -106,6 +157,21 @@ int move_is_legal(int pokenum, int movenum) {
   return 0; //is illegal
 }
 
+int get_user_input_pokemon(char *buf) {
+  fgets(buf, 100, stdin);
+  *strchr(buf, '\n') = 0;
+  if(!strcmp(buf, "help")){
+    //printf("successfully read");
+    print_poke_choices();
+    printf("\nPlease input the ID number of the pokemon you want [1,721] (or type 'help' for a list of pokemon): ");
+    return 0;
+  }
+  else {
+    printf("\nIllegal input, please choose a valid number: "); //retry until a number is input
+    return atoi(buf);
+  }
+}
+
 struct Pokemon **create_team(int size) {
   if (size > 6 || size < 1) {
     printf("Pokemon teams must have 1-6 pokemon\n");
@@ -119,9 +185,8 @@ struct Pokemon **create_team(int size) {
   int i = 0;
   while (i < size) {
     int curr_pokemon_num;
-    printf("Please input the ID number of the pokemon you want [1,721]: ");
-    while ((curr_pokemon_num = get_user_input_int(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO)
-      printf("Illegal input, please choose a valid number: "); //retry until a number is input
+    printf("Please input the ID number of the pokemon you want [1,721] (or type 'help' for a list of pokemon): ");
+    while ((curr_pokemon_num = get_user_input_pokemon(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO);
     printf("You selected pokemon #%d\n", curr_pokemon_num);
     printf("Please select the move you want. Moves for pokemon #%d:\n", curr_pokemon_num);
     print_move_choices(curr_pokemon_num);
