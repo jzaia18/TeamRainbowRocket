@@ -224,7 +224,7 @@ double compute_modifier(struct Pokemon attacker, struct Pokemon defender, struct
 int compute_damage(struct Pokemon attacker, struct Pokemon defender, struct Move m){
 	if (randr(0, 1) > m.acc){ //Accuracy check
     printf("But it missed.\n");
-    return 0;}1`
+    return 0;}
 	else {
     double mod = compute_modifier(attacker, defender, m); //Finds the modifiers on the attack (see above method)
     if (m.isphysical)

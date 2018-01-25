@@ -32,15 +32,19 @@ int main() {
   printf("\n%s\n\n", cutoff);
   struct Pokemon **team = create_team(size);
 
+  printf("\n%s\nYour team is:\n", cutoff);
   int i = 0;
   while (i < size) {
     print_pokemon_data(team[i]);
-    char * s = deconstruct_to_string(team[i++]);
+    /*    char * s = deconstruct_to_string(team[i]);
     struct Pokemon *p = construct_from_string(s);
     print_pokemon_data(p);
     free_pokemon(p);
-    free(s);
+    free(s);*/
+    i++;
   }
+
+  printf("Would you like to save this team? [y/N] ");
 
   free_team(team);
   free(buf);
