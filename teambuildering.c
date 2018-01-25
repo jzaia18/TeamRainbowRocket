@@ -167,7 +167,6 @@ int get_user_input_pokemon(char *buf) {
     return 0;
   }
   else {
-    printf("\nIllegal input, please choose a valid number: "); //retry until a number is input
     return atoi(buf);
   }
 }
@@ -186,10 +185,24 @@ struct Pokemon **create_team(int size) {
   while (i < size) {
     int curr_pokemon_num;
     printf("Please input the ID number of the pokemon you want [1,721] (or type 'help' for a list of pokemon): ");
-    while ((curr_pokemon_num = get_user_input_pokemon(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO);
+    while ((curr_pokemon_num = get_user_input_pokemon(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO)
+      printf("\nPlease choose a valid pokemon id: "); //retry until a number is input;
+
+    printf("\nChoose 2 of the following stats to max:\n");
+    printf("\t1: hp\n\t2: atk\n\t3: def\n\t4: spatk\n\t5: spdef\n\t6: speed\n\t7: balance it! (balances all stats and ignores other choice)\n");
+
+    int ev1, ev2;
+    printf("Choose stat 1: ");
+    while ( (ev1 = get_user_input_int(buf)) < 1 || ev1 > 7)
+      printf("Illegal input, please choose a valid number: ");
+    printf("Choose stat 2: ");
+    while ( (ev2 = get_user_input_int(buf)) < 1 || ev2 > 7)
+      printf("Illegal input, please choose a valid number: ");
+
     printf("You selected pokemon #%d\n", curr_pokemon_num);
     printf("Please select the move you want. Moves for pokemon #%d:\n", curr_pokemon_num);
     print_move_choices(curr_pokemon_num);
+
 
     int m1, m2, m3, m4;
     printf("\nChoose move number 1: ");
@@ -206,7 +219,7 @@ struct Pokemon **create_team(int size) {
       printf("Illegal input, please choose a valid number: ");
 
 
-    ret[i] = construct_pokemon(curr_pokemon_num, m1, m2, m3, m4);
+    ret[i] = construct_pokemon(curr_pokemon_num, m1, m2, m3, m4, ev1, ev2);
     i++;
   }
 

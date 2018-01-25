@@ -138,7 +138,7 @@ static int get_user_input_int(char *buf) { //will probably need more stuff in it
 
 //======================= pokemon.c =======================
 
-struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4);
+struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4, int ev1, int ev2);
 void print_pokemon_data(struct Pokemon *p);
 void set_moves(struct Pokemon*p, int move_1, int move_2, int move_3, int move_4);
 void print_move_data(struct Move *m);

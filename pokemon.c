@@ -32,29 +32,41 @@ int stat_formula(int base, int ev, int iv, int level) {
 }
 
 // Sets all the stats of a Pokemon (ONLY FOR USE AS A HELPER FUNCTION, this will break if not called in the right place.)
-void set_stats(struct Pokemon* p, char *data) {
-  int ev = 0; //for future use
-  int iv = 0; //same
-  int level = 50; //saaaaame
+void set_stats(struct Pokemon* p, char *data, int ev1, int ev2) {
+  int *evs = calloc(6, sizeof(int));
+
+  if (ev1 == 7 || ev2 == 7) { //balance stats
+    int i = 5;
+    while (i >= 0)
+      evs[i--] = 85;
+  } else { //max 2 stats
+    evs[ev1 - 1] = 252;
+    evs[ev2 - 1] = 252;
+  }
+
+  int iv = 31; //static for now
+  int level = 50; //same
 
   //hp is special
-  p->maxhp = (2 * atoi(strsep(&data, ",")) + iv + ev/4) * level / 100 + level + 10;
+  p->maxhp = (2 * atoi(strsep(&data, ",")) + iv + evs[0]/4) * level / 100 + level + 10;
   p->currhp = p->maxhp;
 
   //other stats all use the same formula
-  p->atk = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
-  p->def = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
-  p->spatk = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
-  p->spdef = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
-  p->speed = stat_formula(atoi(strsep(&data, ",")), ev, iv, level);
+  p->atk = stat_formula(atoi(strsep(&data, ",")), evs[1], iv, level);
+  p->def = stat_formula(atoi(strsep(&data, ",")), evs[2], iv, level);
+  p->spatk = stat_formula(atoi(strsep(&data, ",")), evs[3], iv, level);
+  p->spdef = stat_formula(atoi(strsep(&data, ",")), evs[4], iv, level);
+  p->speed = stat_formula(atoi(strsep(&data, ",")), evs[5], iv, level);
 
   //unused
   p->accuracy = 0;
   p->evade = 0;
+
+  free(evs);
 }
 
 // Constructs a pokemon by using data from the csv
-struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4) {
+struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4, int ev1, int ev2) {
   if (id_num < 1 || id_num > MAX_POKEMON_IDNO)
     return NULL;
 
@@ -68,7 +80,7 @@ struct Pokemon *construct_pokemon(int id_num, int m1, int m2, int m3, int m4) {
   p->name=strcpy(malloc(50), strsep(&data, ","));
   p->type1=atoi(strsep(&data, ","));
   p->type2=atoi(strsep(&data, ","));
-  set_stats(p, data);
+  set_stats(p, data, ev1, ev2);
   set_moves(p, m1, m2, m3, m4);
 
   free(to_free);
