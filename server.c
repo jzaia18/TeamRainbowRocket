@@ -1,30 +1,27 @@
 #include "sharedheader.h"
 
-void server(int ip, int port){
-
-  int listen_socket;
-  int clients[2];
-  char buffer[BUFFER_SIZE];
-  int client_counter;
+int main(int argc, char ** argv){
+  int i = 0;
+  char buffer[64];
   
-  // create & bind a server socket to IP & port
-  listen_socket ;
-
-  //do next two things at the same time
-    
-  // wait for clients to connect
-  clients[client_counter] = ;
-
-  // match the two clients for a match
   
-  // fork off the two to subserver
-  if(0 == fork()){
-    //subserver
-  } else {
-    //server goes back to waiting/matching
-  } 
+  int[NUM_OF_SOCKETS] listen_sockets = server_setup();
+  int[NUM_OF_SOCKETS] connected_sockets;
+  
+  for(i; i < NUM_OF_SOCKETS; i++){ //set default values to connected_sockets
+    connected_sockets[i] = -1;
+  }
 
-  // establish connection to both clients
+  while(1){
+    //client should try the ports in order, so this will run smoothly
+    i = 0; //reset counter
+    for (; i < NUM_OF_SOCKETS; i++){
+      if (connected_sockets[i] + 1){ //if connected_socket[i] != -1 (connected_socket[i] is not occupied)
+	connected_sockets[i] = server_connect(listen_sockets[i]);	
+      } else if {
+	
+      }
+    }
 
-  // relay info between the two clients
+  
 }
