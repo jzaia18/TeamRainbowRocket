@@ -82,14 +82,39 @@ void print_move_choices(int pokemon_id) {
   free(moves);
 }
 
+void free_team(struct Pokemon** team) {
+  int i = 0;
+  while (team[i]) {
+    free_pokemon(team[i]);
+    i++;
+  }
+  free(team);
+}
 
-/*int main() {
-  printf("%s\n", learnset_lookup(150));
-  int *data = get_learnset(150);
+struct Pokemon **create_team(int size) {
+  if (size > 6 || size < 1) {
+    printf("Pokemon teams must have 1-6 pokemon\n");
+    return NULL;
+  }
+
+  struct Pokemon **ret = calloc(sizeof(struct Pokemon), size + 1);
+
+  char *buf = malloc(1000);
 
   int i = 0;
-  while(data[i++])
-  printf("%d\t", data[i]);
-  print_move_choices(150);
+  while (i < size) {
+    int curr_pokemon_num;
+    printf("Please input the ID number of the pokemon you want [1,721]: ");
+    while ((curr_pokemon_num = get_user_input_int(buf)) < 1 || curr_pokemon_num > MAX_POKEMON_IDNO); //retry until a number is input
+    printf("You selected pokemon #%d\n", curr_pokemon_num);
+
+    //TODO: get valid moves
+
+    ret[i] = construct_pokemon(curr_pokemon_num);
+    i++;
   }
-*/
+
+  free(buf);
+
+  return ret; //temp
+}

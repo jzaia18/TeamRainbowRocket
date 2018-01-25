@@ -127,6 +127,12 @@ static char *type_lookup(int typeid){
   return "";
 }
 
+static int get_user_input_int(char *buf) { //will probably need more stuff in it
+  fgets(buf, 100, stdin);
+  *strchr(buf, '\n') = 0;
+  return atoi(buf);
+};
+
 //======================= pokemon.c =======================
 
 struct Pokemon *construct_pokemon(int id_num);
@@ -140,3 +146,5 @@ struct Move *construct_move(int move_id);
 //======================= teambuildering.c =======================
 void print_move_choices(int pokemon_id);
 void free_move(struct Move*m);
+struct Pokemon **create_team(int size);
+void free_team(struct Pokemon** team);
