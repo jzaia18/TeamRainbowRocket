@@ -24,13 +24,14 @@ int *server_setup() {
   char s[64];
   
   //set the amount of sockets
-  int numOfSockets = 2;
+  //int numOfSockets = 2;
+  //Now done in sharedheader.h
 
-  //storage for the socket descriptors
-  int *sd = calloc(numOfSockets, sizeof(int));
+  //storage for the socket descriptor
+  int *sd = calloc(NUM_OF_SOCKETS, sizeof(int));
 
   //create the sockets
-  for (; i < numOfSockets; i++){
+  for (; i < NUM_OF_SOCKETS; i++){
     sd[i] = socket( AF_INET, SOCK_STREAM, 0 ); 
     sprintf( s, "Server socket[%d] creation", i); 
     error_check( sd[i], s ); 
@@ -42,7 +43,7 @@ int *server_setup() {
     hints->ai_family = AF_INET;  //IPv4 address 
     hints->ai_socktype = SOCK_STREAM;  //TCP socket 
     hints->ai_flags = AI_PASSIVE;  //Use all valid addresses 
-    getaddrinfo(NULL, 5001 + i, hints, &results); //NULL -> local address 
+    getaddrinfo(IP, PORT + i, hints, &results); //IP is NULL -> local address 
 
     //bind socket[i] to address and port 
     n = bind( sd[i], results->ai_addr, results->ai_addrlen ); 

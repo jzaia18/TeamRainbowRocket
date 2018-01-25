@@ -148,3 +148,8 @@ void print_move_choices(int pokemon_id);
 void free_move(struct Move*m);
 struct Pokemon **create_team(int size);
 void free_team(struct Pokemon** team);
+
+//======================= networking.c ===========================
+#define NUM_OF_SOCKETS 2
+#define IP             NULL
+#define PORT           5001
