@@ -7,6 +7,10 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <errno.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 // All pokemon types
 #define NORMAL_TYPENO   1
@@ -161,7 +165,18 @@ void free_team(struct Pokemon** team);
 #define IP             NULL
 #define PORT           5001
 
+int *server_setup();
+int server_connect(int);
+int client_setup(char *);
+
+//======================= server.c ===========================
+
+//======================= client.c ===========================
+
 //======================= battleutils.c ===========================
 float compute_effectiveness(char atktype, char deftype1, char deftype2);
 double compute_modifier(struct Pokemon attacker, struct Pokemon defender, struct Move m);
 int compute_damage(struct Pokemon attacker, struct Pokemon defender, struct Move m);
+
+//======================= main.c ===========================
+void print_opening();

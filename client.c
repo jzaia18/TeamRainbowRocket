@@ -14,11 +14,11 @@ char *starting_prompt(){
   printf("\n%s\n\n", cutoff);
   struct Pokemon **team = create_team(size);
 
-  char storage[10000];
+  char *storage = malloc(10000);
   int i = 0;
   while (i < size) {
     print_pokemon_data(team[i++]);
-    char s[1000] = deconstruct_to_string(team[i]);
+    char * s = deconstruct_to_string(team[i]);
     strcat(storage, "\n");
     strcat(storage, s);
     free(s);
@@ -47,7 +47,7 @@ int main(int argc, char ** argv){
   if (argc == 2)
     server_socket = client_setup(argv[1]);
   else
-    server_socket = client_setup('127.0.0.1');
+    server_socket = client_setup("127.0.0.1");
 
   int started = 1;
   while (1){
@@ -65,7 +65,7 @@ int main(int argc, char ** argv){
     //if client is ready
     if (FD_ISSET(STDIN_FILENO, &read_fds)) {
       if (started) { //runs only at the start
-	buffer = starting_prompt();
+	strcpy(buffer,starting_prompt());
 	started = 0;
       }
       else {

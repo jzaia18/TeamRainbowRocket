@@ -19,6 +19,7 @@ void print_opening() {
   printf("\n\nA game by Leo Liu, Piotr Milewski, Jake Zaia, & Rihui Zheng. Enjoy.\n\n%s\n\n", cutoff);
 }
 
+
 int main() {
   print_opening();
 
@@ -35,7 +36,7 @@ int main() {
   printf("\n%s\nYour team is:\n", cutoff);
   int i = 0;
   while (i < size) {
-    print_pokemon_data(team[i]);
+  print_pokemon_data(team[i]);
     /*    char * s = deconstruct_to_string(team[i]);
     struct Pokemon *p = construct_from_string(s);
     print_pokemon_data(p);
@@ -49,3 +50,4 @@ int main() {
   free_team(team);
   free(buf);
 }
+

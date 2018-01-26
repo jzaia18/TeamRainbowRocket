@@ -3,10 +3,14 @@
 int main(int argc, char ** argv){
   int i = 0;
   char buffer[1000];
+  char *buf = malloc(1000);
+  
+  //set of file descriptors to read from
+  fd_set read_fds;
   
   
-  int[NUM_OF_SOCKETS] listen_sockets = server_setup();
-  int[NUM_OF_SOCKETS] connected_sockets;
+  int *listen_sockets = server_setup();
+  int connected_sockets[NUM_OF_SOCKETS];
   
   for(i; i < NUM_OF_SOCKETS; i++){ //set default values to connected_sockets
     connected_sockets[i] = -1;
@@ -26,7 +30,7 @@ int main(int argc, char ** argv){
     int count = 0;
     int sd = 0;
     int start = 1;
-    char hold[1000];
+    char *hold;
     for(; i < NUM_OF_SOCKETS; i++){
       if (connected_sockets[i] + 1){
 	if (sd == 0)
@@ -40,7 +44,7 @@ int main(int argc, char ** argv){
 	  FD_SET(sd, &read_fds); //add stdin to fd set
 	  FD_SET(connected_sockets[i], &read_fds); //add socket to fd set
 	  
-	  select(server_socket + 1, &read_fds, NULL, NULL, NULL);
+	  select(NUM_OF_SOCKETS, &read_fds, NULL, NULL, NULL);
 
 	  //if client1 is ready
 	  if (FD_ISSET(sd, &read_fds)) {
@@ -49,44 +53,48 @@ int main(int argc, char ** argv){
 	      //create team 1
 	      struct Pokemon **team1 = create_team(7);
 	      read(sd, buffer, sizeof(buffer));
-	      while (hold = strsep(buffer, "\n") && count < 6)
+	      strcpy(buf, buffer);
+	      while ((hold = strsep(&buf, "\n")) && count < 6)
 		team1[count++] = construct_from_string(hold);
 	      count = 0;
 
 	      //create team 2
 	      struct Pokemon **team2 = create_team(7);
-	      read(server_socket[i], buffer, sizeof(buffer));
-	      while (hold = strsep(buffer, "\n") && count < 6)
+	      read(connected_sockets[i], buffer, sizeof(buffer));
+	      strcpy(buf, buffer);
+	      while ((hold = strsep(&buf, "\n")) && count < 6)
 		team2[count++] = construct_from_string(hold);
 
 	      start = 0;
 	    }
 	    
-	    battle_scene(); //prompt that describes the events of the battle
-	    write(server_socket[i], buffer, sizeof(buffer));
+	    //battle_scene(); //prompt that describes the events of the battle
+	    write(connected_sockets[i], buffer, sizeof(buffer));
 	  }
 	  
 	  //if client2 is ready
-	  if (FD_ISSET(server_socket[i], &read_fds)) {
+	  if (FD_ISSET(connected_sockets[i], &read_fds)) {
 
 	    if (start) {
 	      //create team 1
 	      struct Pokemon **team1 = create_team(7);
-	      read(server_socket[i], buffer, sizeof(buffer));
-	      while (hold = strsep(buffer, "\n") && count < 6)
+	      read(connected_sockets[i], buffer, sizeof(buffer));
+	      strcpy(buf, buffer);
+	      while ((hold = strsep(&buf, "\n")) && count < 6)
 		team1[count++] = construct_from_string(hold);
 	      count = 0;
 
 	      //create team 2
 	      struct Pokemon **team2 = create_team(7);
 	      read(sd, buffer, sizeof(buffer));
-	      while (hold = strsep(buffer, "\n") && count < 6)
+	      strcpy(buf, buffer);
+	      while ((hold = strsep(&buf, "\n")) && count < 6)
 		team2[count++] = construct_from_string(hold);
 
 	      start = 0;
 	    }
 
-	    battle_scene(); //prompt that describes the events of the battle
+	    //battle_scene(); //prompt that describes the events of the battle
 	    write(sd, buffer, sizeof(buffer));
 	  }
 	}

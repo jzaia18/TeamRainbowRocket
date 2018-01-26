@@ -4,6 +4,9 @@ run: all
 all: pokemon.o main.o battleutils.o teambuildering.o
 	gcc -g -o pokemonCup main.o pokemon.o battleutils.o teambuildering.o
 
+all2: pokemon.o main.o battleutils.o teambuildering.o networking.o client.o server.o
+	gcc -g -o pokemonCup main.o pokemon.o battleutils.o teambuildering.o networking.o client.o server.o
+
 serversetup: server.o
 	gcc -o server server.o
 
@@ -25,11 +28,14 @@ teambuildering.o: teambuildering.c
 battleutils.o: battleutils.c
 	gcc -g -c battleutils.c
 
+networking.o: networking.c
+	gcc -g -c networking.c
+
 client.o: client.c
-	gcc -c client.c
+	gcc -g -c client.c
 
 server.o: server.c
-	gcc -c server.c
+	gcc -g -c server.c
 
 clean:
 	rm *.o
