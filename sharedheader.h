@@ -84,7 +84,7 @@ struct Pokemon {
 
 
 //======================= Versatile (used across several files) =======================
-//static is a slight cheat here required to get past the compiler here
+//static is a slight cheat here required to get past the compiler
 
 static char* cutoff = "=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=";
 

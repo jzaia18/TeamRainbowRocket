@@ -1,5 +1,5 @@
-# TeamRainbowRocket
-Project 2: The final frontier
+# RainbowRocket
+A pokemon teambuilder and battle simulator
 
 by Leo Liu, Piotr Milewski, Jake Zaia & Rihui Zheng
 
@@ -8,6 +8,18 @@ This project is a pokemon battle simulator where users can choose a pokemon, set
 
 ## How it works
 Pokemon and Moves are both structs that get their contents from a large CSV of all pokemon data. Pokemon can be turned into strings and back into Pokemon, which is how the server and clients easily communicate.
+
+## Launch Instructions
+1. `git clone https://github.com/jzaia18/TeamRainbowRocket.git `
+2. `make all`
+3. On one terminal session `./server`
+4. On TWO terminal sessions `./client`
+
+You now have 2 "players" connected to a server preparing for battle.
+
+You will be prompted to build a team, feel free to do so, or use the prebuilt team we have provided you. (Select to load a team) The team is named "red".
+
+Good luck in battle, young trainer!
 
 ## Files
 
