@@ -181,3 +181,6 @@ int compute_damage(struct Pokemon attacker, struct Pokemon defender, struct Move
 
 //======================= main.c ===========================
 void print_opening();
+void print_team(struct Pokemon**team);
+void save_team(struct Pokemon **team);
+struct Pokemon **read_team(const char* teamname);
