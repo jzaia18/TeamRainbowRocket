@@ -59,19 +59,16 @@ int main(int argc, char ** argv){
 
   starting_prompt();
 
-  printf("start?\n");
   int server_socket;
-  char buffer[10000];
+  char buffer[1000];
   fd_set read_fds;
-
-  printf("wat");
-  if (argc == 2){
-    printf("if\n");
-    server_socket = client_setup(argv[1]);
-  } else {
-    printf("else\n");
-    server_socket = client_setup(IP);
-  }
+  
+  //re-enable in future
+  //printf("please enter the IP address of the server: ");
+  //fgets(buffer,sizeof(buffer),STD_IN);
+  //*strchr(buffer,'\n') = 0;
+  
+  server_socket = client_setup(IP);
 
 
   int started = 1;
