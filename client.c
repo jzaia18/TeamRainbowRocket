@@ -18,8 +18,10 @@ void starting_prompt(){
 
       fgets(buf, 100, stdin);
       *strchr(buf, '\n') = 0;
-      team = read_team(buf);
-      print_team(team);
+      if ( ! (team = read_team(buf) ))
+        printf("That team name is invalid.\n");
+      if(team)
+        print_team(team);
     }
     else { //create a new team
 
@@ -75,7 +77,7 @@ int main(int argc, char ** argv){
   while (1){
 
     printf("enter text to send: ");
-
+    fgets(buffer, sizeof(buffer), stdin);
     //select() modifies read_fds
     //we must reset it at each iteration
     FD_ZERO(&read_fds);
