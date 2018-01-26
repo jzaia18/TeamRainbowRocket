@@ -113,20 +113,11 @@ int client_setup(char * server) {
     sprintf( s, "%d", PORT + i);
     getaddrinfo(server, s, hints, &results);
     printf("trying port %s\n", s);
-    if ((i = connect( sd, results->ai_addr, results->ai_addrlen )) == 0){  
+    if (connect( sd, results->ai_addr, results->ai_addrlen ) == 0){ //if connect returns 0
       printf("found an open port\n");
     break;
     }
   }
-
-  //connect to the server
-  //connect will bind the socket for us
-  
-  error_check( i, "client connect" );
-
-  
-  //if client1 is ready
-
   printf("connected\n");
   
   free(hints);

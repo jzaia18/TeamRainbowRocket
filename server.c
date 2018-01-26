@@ -29,6 +29,9 @@ int main(int argc, char ** argv){
 	      Possible places where it went wrong:
 	          networking.c -> client_setup(): (line 102-119)
                       Client did not properly cycle through possible ports to look for an open one
+		      line 116 probably doesn't do what I expect it to
+		          should return false if ip & port is occupied
+			         return true if ip & port is free
 		  networking.c -> server_connect(): (line 74-85)
 		      Server failed to accept connection on port 5002 (when i = 1)
 	  ================================================================================================================*/
