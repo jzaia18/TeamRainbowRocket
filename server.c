@@ -1,32 +1,5 @@
 #include "sharedheader.h"
 
-void starting_prompt(){
-
-  print_opening();
-
-  char *buf = malloc(1000);
-
-  int size = 0;
-  printf("How large of a team do you want? (Choose between 1 and 6) ");
-  while ((size = get_user_input_int(buf)) < 1 || size > 6) //retry until a valid number is input
-    printf("Pokemon teams must have 1-6 pokemon: ");
-
-  printf("\n%s\n\n", cutoff);
-  struct Pokemon **team = create_team(size);
-
-  int i = 0;
-  while (i < size)
-    print_pokemon_data(team[i++]);
-
-  free_team(team);
-  free(buf);
-}
-
-void battle_scene(){
-  
-
-}
-
 int main(int argc, char ** argv){
   int i = 0;
   char buffer[1000];
@@ -50,9 +23,10 @@ int main(int argc, char ** argv){
     }
 
     i = 0;
-    int started_server = 1;
-    int started_client = 1;
+    int count = 0;
     int sd = 0;
+    int start = 1;
+    char hold[1000];
     for(; i < NUM_OF_SOCKETS; i++){
       if (connected_sockets[i] + 1){
 	if (sd == 0)
@@ -68,28 +42,52 @@ int main(int argc, char ** argv){
 	  
 	  select(server_socket + 1, &read_fds, NULL, NULL, NULL);
 
-	  //server
+	  //if client1 is ready
 	  if (FD_ISSET(sd, &read_fds)) {
-	    if (started_server) { //runs only at the start
-	      starting_prompt(); //prompt for initializing the teams
-	      started_server = 0; 
+
+	    if (start) {
+	      //create team 1
+	      struct Pokemon **team1 = create_team(7);
+	      read(sd, buffer, sizeof(buffer));
+	      while (hold = strsep(buffer, "\n") && count < 6)
+		team1[count++] = construct_from_string(hold);
+	      count = 0;
+
+	      //create team 2
+	      struct Pokemon **team2 = create_team(7);
+	      read(server_socket[i], buffer, sizeof(buffer));
+	      while (hold = strsep(buffer, "\n") && count < 6)
+		team2[count++] = construct_from_string(hold);
+
+	      start = 0;
 	    }
-	    read(sd, buffer, sizeof(buffer));
-	    construct_from_string(buffer);
+	    
 	    battle_scene(); //prompt that describes the events of the battle
 	    write(server_socket[i], buffer, sizeof(buffer));
 	  }
 	  
-	  //client
+	  //if client2 is ready
 	  if (FD_ISSET(server_socket[i], &read_fds)) {
-	    if (started_client) { //runs only at the start
-	      starting_prompt(); //prompt for initializing the teams
-	      started_client = 0; 
+
+	    if (start) {
+	      //create team 1
+	      struct Pokemon **team1 = create_team(7);
+	      read(server_socket[i], buffer, sizeof(buffer));
+	      while (hold = strsep(buffer, "\n") && count < 6)
+		team1[count++] = construct_from_string(hold);
+	      count = 0;
+
+	      //create team 2
+	      struct Pokemon **team2 = create_team(7);
+	      read(sd, buffer, sizeof(buffer));
+	      while (hold = strsep(buffer, "\n") && count < 6)
+		team2[count++] = construct_from_string(hold);
+
+	      start = 0;
 	    }
-	    read(server_socket[i], buffer, sizeof(buffer));
+
 	    battle_scene(); //prompt that describes the events of the battle
 	    write(sd, buffer, sizeof(buffer));
-	    deconstruct_to_string();
 	  }
 	}
       }
