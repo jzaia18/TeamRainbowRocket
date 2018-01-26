@@ -28,8 +28,8 @@ Update gitignore
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-26	TakingTheL
-added more comments
+2018-01-26	Leo Liu
+added more comments to client.c, network.c & server.c
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
@@ -43,38 +43,38 @@ Fix makefile, add print statements
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 adding more documentations for the bug, removed unnecessary code
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 clarified issue
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 updated make clean to remove server and client executables
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
-Help needed. See section in main
+2018-01-25	Leo Liu
+Documented a bug within networking.c/server.c/client.c
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
-minor fixes, still not perfect thought...
+2018-01-25	Leo Liu
+Attempt at fixing a bug, resolved partially
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
-hopefully, this puts most stuff together
+2018-01-25	Leo Liu
+Updated makefile to reflect current state of project, also corrected syntax errors and minor bugs
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
@@ -148,18 +148,18 @@ Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 server supports 2 clients, connects the two and relay data between the two
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
-progress
+2018-01-25	Leo Liu
+Implemented select server and client. Thanks to Adeebur for clarifying select()
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
@@ -183,7 +183,7 @@ Add safeties for user input, add battleutils to header
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 moved constants to header file
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
@@ -198,13 +198,13 @@ Add min and max to sharedheader
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
+2018-01-25	Leo Liu
 Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-25	TakingTheL
-worked on a selecting client
+2018-01-25	Leo Liu
+worked on a selecting client, kinda confused
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
@@ -283,8 +283,8 @@ server work
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-18	TakingTheL
-SAVE ME PIOTR
+2018-01-18	Leo Liu
+Initialized & laid out basis of server.c
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
@@ -313,17 +313,17 @@ created client and modified makefile to compile client/server
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-18	TakingTheL
+2018-01-18	Leo Liu
 initialized server.c
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-18	TakingTheL
+2018-01-18	Leo Liu
 Merge branch 'master' of github.com:jzaia18/TeamRainbowRocket
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-18	TakingTheL
+2018-01-18	Leo Liu
 transfer of networking.h into our server
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
@@ -377,13 +377,13 @@ changed most strtok to strsep
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-10	TakingTheL
-rename and mkdir for our server
+2018-01-10	Leo Liu
+created space dedicated for our server
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
-2018-01-10	TakingTheL
-upload of dw's code
+2018-01-10	Leo Liu
+upload of dw's code for reference
 
 =*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
 
