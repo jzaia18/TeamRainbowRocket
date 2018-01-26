@@ -29,7 +29,7 @@ void battle_scene(){
 
 int main(int argc, char ** argv){
   int i = 0;
-  char buffer[64];
+  char buffer[1000];
   
   
   int[NUM_OF_SOCKETS] listen_sockets = server_setup();
