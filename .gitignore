@@ -57,6 +57,8 @@ pokecsvs/
 # things used to run the program
 *.o
 pokemonCup
+client
+server
 
 #mkdevlog
 mkdevlog
