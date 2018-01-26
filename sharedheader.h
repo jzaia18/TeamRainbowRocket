@@ -54,6 +54,9 @@
 #define FIRST_ZMOVE_ID 622
 #define LAST_ZMOVE_ID 658
 
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+
 //======================= Typedefs =======================
 
 struct Move {
