@@ -47,7 +47,7 @@ server.o: server.c
 
 clean:
 	rm *.o
-	rm pokemonCup
+	rm server client pokemonCup
 
 valgrind: recompile
 	valgrind --leak-check=full ./pokemonCup
