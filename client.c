@@ -76,7 +76,7 @@ int main(int argc, char ** argv){
   int started = 1;
   while (1){
 
-    printf("enter text to send: ");
+    printf("enter text to send: \n[We got to this point, but server would not work]\n");
     fgets(buffer, sizeof(buffer), stdin);
     //select() modifies read_fds
     //we must reset it at each iteration
