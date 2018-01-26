@@ -27,9 +27,9 @@ int main(int argc, char ** argv){
 	/*================================================================================================================
 	  HALP! server_connect will not work on the second pass (ie when i = 1)
 	      Possible places where it went wrong:
-	          networking.c -> client_setup():
+	          networking.c -> client_setup(): (line 102-119)
                       Client did not properly cycle through possible ports to look for an open one
-		  networking.c -> server_connect():
+		  networking.c -> server_connect(): (line 74-85)
 		      Server failed to accept connection on port 5002 (when i = 1)
 	  ================================================================================================================*/
 	
