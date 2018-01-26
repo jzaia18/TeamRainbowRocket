@@ -49,12 +49,13 @@ int main(int argc, char ** argv){
     int start = 1;
     char *hold;
     for(; i < NUM_OF_SOCKETS; i++){
-      if (connected_sockets[i] + 1){
-        if (sd == 0)
-          sd = connected_sockets[i];
-        else{
+      if (connected_sockets[i] + 1){ //if (connected_sockets[i] != -1)
+        if (sd == 0) //if another client hasn't connected yet
+          sd = connected_sockets[i]; //connected_sockets[i] is set aside to wait, repeat loop
+        else{ //2 players!
           //connect the clients
-	  
+
+	  //the following is loosely based on dwsource/select_server.c
           //select() modifies read_fds
           //we must reset it at each iteration
           FD_ZERO(&read_fds);
@@ -63,7 +64,7 @@ int main(int argc, char ** argv){
 	  
           select(NUM_OF_SOCKETS, &read_fds, NULL, NULL, NULL);
 
-          //if client1 is ready
+          //if client1 is ready / has entered a move
           if (FD_ISSET(sd, &read_fds)) {
 
             if (start) {
@@ -89,7 +90,7 @@ int main(int argc, char ** argv){
             write(connected_sockets[i], buffer, sizeof(buffer));
           }
 	  
-          //if client2 is ready
+          //if client2 is ready / has entered a move
           if (FD_ISSET(connected_sockets[i], &read_fds)) {
 
             if (start) {
