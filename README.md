@@ -21,6 +21,14 @@ This file is the one that contains the main method that interacts with all other
 
 ### networking.c
 
+#### server_setup
+####  Creates and binds a server side socket
+####    Sets the socket to the listening state
+####  Arguments:
+####    None
+####  Return:
+####    int Socket Descriptor
+
 ### pokemon.c
 Contains helper files for creating pokemon and moves and setting this attributes.
 
