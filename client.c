@@ -85,6 +85,9 @@ void ending_prompt(){
 }
 
 int main(int argc, char ** argv){
+    
+    opening_prompt();
+    
   printf("start?\n");
   int server_socket;
   char buffer[10000];
