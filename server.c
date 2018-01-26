@@ -37,6 +37,8 @@ int main(int argc, char ** argv){
           ================================================================================================================*/
 
         connected_sockets[i] = server_connect(listen_sockets[i]);
+        printf("Shutting socket...\n");
+        shutdown(listen_sockets[i], SHUT_RD);
         printf("server_connect\n");
       }
     }
