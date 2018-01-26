@@ -8,7 +8,7 @@ int main(int argc, char ** argv){
   if (argc == 2)
     server_socket = client_setup(argv[1]);
   else
-    server_socket = client_setup(/* INSERT IP & PORT HERE */);
+    server_socket = client_setup('127.0.0.1');
 
   while (1){
     
